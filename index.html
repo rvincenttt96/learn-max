@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
+    <meta name="theme-color" content="#0a0a0e" />
+    <meta name="color-scheme" content="dark" />
+    <title dir="rtl" lang="fa">&#x2067;حسابداری آموزشگاه غزال&#x2069;</title>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/ghazal-logo.png?v=tab1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/ghazal-logo.png?v=tab1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/ghazal-logo.png?v=tab1">
+    <!-- gz-boot-state -->
+    <style id="gz-login-critical">
+      html, body { margin:0; background:#08080c; }
+      html.gz-login-pending, html.gz-login-pending body { background:#14080c; }
+      html.gz-login-pending #root,
+      html.gz-login-pending #gz-boot { display:none !important; }
+      html.gz-login-pending #gz-login { display:block !important; }
+      html.gz-booting #gz-login { display:none !important; }
+      html.gz-booting #root { display:none !important; }
+      html.gz-booting #gz-boot,
+      html.gz-booting #gz-boot[hidden] {
+        display:flex !important;
+        visibility:visible !important;
+      }
+      html.gz-booting #gz-pay,
+      html.gz-booting #gz-books { display:none !important; }
+      html.gz-app-ready:not(.gz-booting) #gz-login,
+      #gz-login[hidden] { display:none !important; }
+      html.gz-app-ready:not(.gz-booting),
+      html.gz-app-ready:not(.gz-booting) body { background:#08080c; }
+      #gz-login-form { background:#fff !important; color:#111 !important; }
+      #gz-login-form input { background:#fff !important; color:#111 !important; -webkit-text-fill-color:#111 !important; }
+      #gz-boot {
+        display:none;
+        position:fixed;
+        inset:0;
+        z-index:200;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:16px;
+        background:#08080c;
+        color:#fb7185;
+        font-size:13px;
+      }
+      #gz-boot .gz-boot-spin {
+        width:48px;height:48px;border-radius:999px;
+        border:2px solid rgba(239,68,68,.2);
+        border-top-color:#ef4444;
+        animation:gz-boot-spin .8s linear infinite;
+      }
+      @keyframes gz-boot-spin { to { transform: rotate(360deg); } }
+    </style>
+    <script>
+      (function () {
+        var text = "حسابداری آموزشگاه غزال";
+        var marked = "\u2067" + text + "\u2069";
+        var el = document.querySelector("title");
+        if (el) {
+          el.setAttribute("dir", "rtl");
+          el.setAttribute("lang", "fa");
+          el.textContent = marked;
+        }
+        document.title = marked;
+
+        var boot = window.__GHAZAL_ACC_BOOT || {};
+        var hasUser = !!(boot.user && boot.user.username);
+        try {
+          if (boot.user && boot.user.username) {
+            sessionStorage.setItem('ghazal-user', JSON.stringify(boot.user));
+          }
+          if (!hasUser) hasUser = !!sessionStorage.getItem('ghazal-user');
+        } catch (e) {}
+
+        var html = document.documentElement;
+        html.classList.remove('gz-login-pending', 'gz-auth-handoff', 'gz-booting', 'gz-app-ready');
+        if (hasUser) html.classList.add('gz-booting', 'gz-auth-handoff');
+        else html.classList.add('gz-login-pending');
+
+        try {
+          var raw = String(location.hash || '').replace(/^#\/?/, '');
+          var path = String(raw.split('?')[0] || '').toLowerCase();
+          var allowed = { overview: 1, registration: 1, payroll: 1, expenses: 1, bookstore: 1 };
+          if (path && allowed[path]) {
+            sessionStorage.setItem('gz-acc-section', path);
+            localStorage.setItem('gz-acc-section', path);
+          }
+          var termFromHash = '';
+          if (raw.indexOf('?') !== -1) {
+            termFromHash = new URLSearchParams(raw.split('?')[1] || '').get('term') || '';
+          }
+          if (termFromHash) {
+            sessionStorage.setItem('gz-acc-term', termFromHash);
+            localStorage.setItem('gz-acc-term', termFromHash);
+          }
+          var sec = sessionStorage.getItem('gz-acc-section') || localStorage.getItem('gz-acc-section');
+          var term = sessionStorage.getItem('gz-acc-term') || localStorage.getItem('gz-acc-term');
+          if (sec && !location.hash) {
+            history.replaceState(null, '', '#/' + sec + (term ? ('?term=' + encodeURIComponent(term)) : ''));
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="stylesheet" href="/login.css?v=boot4">
+    <!-- gz-app-preload -->
+    <!-- gz-books3 -->
+    <style>
+      .gz-term-native {
+        position: absolute !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .gz-term-wrap {
+        position: relative;
+        min-width: 0;
+        flex: 1;
+      }
+      @media (min-width: 1024px) {
+        .gz-term-wrap { min-width: 220px; }
+      }
+      .gz-term-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        background: #12121C;
+        border: 1px solid rgba(127, 29, 29, 0.4);
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: right;
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+        transition: transform 140ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .gz-term-btn:active { transform: scale(0.97); }
+      .gz-term-btn-label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .gz-term-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        width: 100%;
+        min-width: 260px;
+        max-height: 320px;
+        overflow-y: auto;
+        background: rgba(15, 15, 24, 0.96);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 16px;
+        z-index: 80;
+        padding: 6px 0;
+      }
+      .gz-term-wrap.open .gz-term-menu { display: block; }
+      @media (max-width: 1023px) {
+        .gz-term-menu {
+          min-width: 0;
+          width: 100%;
+          max-height: min(50dvh, 320px);
+        }
+      }
+      .gz-term-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        background: transparent;
+        border: 0;
+        color: #cbd5e1;
+        padding: 10px 16px;
+        font-size: 13px;
+        cursor: pointer;
+        text-align: right;
+      }
+      .gz-term-item.is-active { color: #fff; font-weight: 700; background: rgba(127, 29, 29, 0.35); }
+      .gz-term-item:active { transform: scale(0.97); }
+      @media (hover: hover) and (pointer: fine) {
+        .gz-term-item:hover { background: rgba(127, 29, 29, 0.4); }
+      }
+      .gz-term-chip {
+        font-size: 9px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .gz-term-chip-teach {
+        background: rgba(6, 78, 59, 0.8);
+        color: #6ee7b7;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+      .gz-term-chip-reg {
+        background: rgba(8, 47, 73, 0.8);
+        color: #7dd3fc;
+        border: 1px solid rgba(14, 165, 233, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="gz-login" class="gz-login" style="display:block;background:#14080c;padding:36px 20px 48px;min-height:100vh;">
+      <div class="gz-login__shell" style="display:block;max-width:400px;margin:0 auto;">
+        <p style="margin:0 0 8px;color:#fecdd3;font-size:12px;letter-spacing:.2em;text-align:center;">GHAZAL ACADEMY</p>
+        <h1 class="gz-brand__title" style="margin:0 0 12px;color:#fff;font-size:40px;font-weight:900;text-align:center;">غزال</h1>
+        <p class="gz-brand__lede" style="margin:0 0 24px;color:#f5d0d6;font-size:14px;line-height:1.8;text-align:center;">پنل حسابداری آموزشگاه<br>شهریه، ثبت‌نام و حقوق مدرسان</p>
+        <form id="gz-login-form" autocomplete="on" style="display:block;background:#fff;color:#111;border-radius:20px;padding:22px 18px;">
+          <h2 style="margin:0 0 6px;color:#111;font-size:20px;">ورود به حسابداری</h2>
+          <p style="margin:0 0 16px;color:#444;font-size:13px;">با حساب مدیریت یا پذیرش وارد شوید.</p>
+          <label for="gz-user" style="display:block;margin:0 0 6px;color:#111;font-size:13px;">نام کاربری</label>
+          <input id="gz-user" name="username" type="text" inputmode="text" autocomplete="username" required placeholder="نام کاربری" style="display:block;width:100%;height:48px;margin:0 0 14px;box-sizing:border-box;padding:0 12px;border:1px solid #ccc;border-radius:12px;background:#fff;color:#111;font-size:16px;">
+          <label for="gz-pass" style="display:block;margin:0 0 6px;color:#111;font-size:13px;">رمز عبور</label>
+          <input id="gz-pass" name="password" type="password" autocomplete="current-password" required placeholder="رمز عبور" style="display:block;width:100%;height:48px;margin:0 0 8px;box-sizing:border-box;padding:0 12px;border:1px solid #ccc;border-radius:12px;background:#fff;color:#111;font-size:16px;">
+          <button type="button" id="gz-pass-toggle" aria-pressed="false" style="display:inline-block;margin:0 0 14px;border:0;background:transparent;color:#444;font-size:13px;">نمایش رمز</button>
+          <p class="gz-error" id="gz-login-error" hidden style="color:#b91c1c;text-align:center;"></p>
+          <button type="submit" class="gz-submit" id="gz-login-btn" style="display:block;width:100%;height:50px;border:0;border-radius:12px;background:#e11d48;color:#fff;font-size:16px;font-weight:700;">
+            <span class="gz-submit__spin" aria-hidden="true"></span>
+            <span class="gz-submit__label">ورود به پنل</span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div id="root"></div>
+    <div id="gz-boot" hidden>
+      <div class="gz-boot-spin" aria-hidden="true"></div>
+      <span>در حال بارگذاری...</span>
+    </div>
+    <script src="/login.js?v=boot4"></script>
+  </body>
+</html>
