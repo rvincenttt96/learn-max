@@ -20,6 +20,7 @@ wordpress/ghazal-seo-secret.php
 *.pem
 .env
 .env.*
+!.env.example
 
 # runtime / user data
 uploads/quiz-books/*
