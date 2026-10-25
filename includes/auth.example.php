@@ -16,6 +16,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
+if (!isset($pdo) && is_file(__DIR__ . '/db.php')) {
+    require_once __DIR__ . '/db.php';
+}
+
 if (empty($_SESSION['logged_in']) && !empty($_COOKIE['remember_token']) && isset($pdo) && $pdo instanceof PDO) {
     $stmt = $pdo->prepare(
         'SELECT id, username, role, full_name FROM users WHERE remember_token = ? AND is_deleted = 0 LIMIT 1'
