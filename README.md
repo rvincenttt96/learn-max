@@ -17,3 +17,12 @@
 3. ریشهٔ وب را همین پوشه بگذارید (`index.php` صفحهٔ ورود است).
 
 رمز، توکن، و فایل‌های `config.php` / `config.json` داخل این ریپوی عمومی نیستند.
+
+## دیتابیس
+
+روی cPanel دو MySQL جدا ساخته شده (هنوز دیپلوی نشده):
+
+- آموزشی: `rzsbtmgo_edu` — اسکیما: `schema/education.sql`
+- حسابداری روی برنچ `accounting` است (`rzsbtmgo_acc`).
+
+`includes/db.example.php` را به `includes/db.php` کپی کنید و نام دیتابیس/رمز را فقط روی سرور بگذارید.
