@@ -17,3 +17,10 @@
 3. `.htaccess` همین پوشه `/api/*` را به `api/api.php` می‌فرستد.
 
 رمز دیتابیس را commit نکنید.
+
+## دیتابیس
+
+- حسابداری: `rzsbtmgo_acc` — اسکیما: `schema/accounting.sql`
+- آموزشی روی برنچ `education` است (`rzsbtmgo_edu`).
+
+`api/config.example.php` را به `api/config.php` کپی کنید. رمز را commit نکنید.
