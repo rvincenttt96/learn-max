@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "دیتابیس و مسیر ذخیره داده غزال",
+    "output": "ghazal-data.dataflow.html",
+    "quality_profile": "showcase",
+    "viewBox": [940, 400],
+    "views": [
+      {
+        "id": "panel-store",
+        "label": "ذخیره پنل",
+        "focus": ["studentUi", "panelPhp", "panelDb", "dash"],
+        "note": "کاربر، کلاس و حضور در ghazali1_panel می‌ماند."
+      },
+      {
+        "id": "acc-store",
+        "label": "شهریه و رسید",
+        "focus": ["accUi", "accApi", "accDb", "invoice"],
+        "note": "Acc از UI خودش students و receipts را می‌نویسد."
+      }
+    ]
+  },
+  "stages": [
+    { "label": "ورود" },
+    { "label": "سرویس" },
+    { "label": "MySQL" },
+    { "label": "خواندن" }
+  ],
+  "nodes": [
+    { "id": "studentUi", "type": "frontend", "label": "پنل دانش‌آموز", "sublabel": "کلاس و BookStore", "stage": 0, "row": 0, "tag": "HTTPS" },
+    { "id": "accUi", "type": "frontend", "label": "UI حسابداری", "sublabel": "ثبت‌نام و رسید", "stage": 0, "row": 1 },
+    { "id": "panelPhp", "type": "backend", "label": "PHP پنل", "sublabel": "identity-sync", "stage": 1, "row": 0, "tag": "PDO" },
+    { "id": "accApi", "type": "backend", "label": "Acc API", "sublabel": "/api/students", "stage": 1, "row": 1 },
+    { "id": "panelDb", "type": "database", "label": "ghazali1_panel", "sublabel": "users · classes", "stage": 2, "row": 0, "tag": "MySQL" },
+    { "id": "accDb", "type": "database", "label": "ghazali1_Acc", "sublabel": "students · receipts", "stage": 2, "row": 1, "tag": "MySQL" },
+    { "id": "dash", "type": "frontend", "label": "داشبورد پنل", "sublabel": "حضور و کلاس", "stage": 3, "row": 0 },
+    { "id": "invoice", "type": "frontend", "label": "چاپ فاکتور", "sublabel": "صورتحساب Acc", "stage": 3, "row": 1 }
+  ],
+  "flows": [
+    { "id": "student-to-panel", "from": "studentUi", "to": "panelPhp", "label": "فرم", "classification": "session", "variant": "emphasis" },
+    { "id": "accui-to-api", "from": "accUi", "to": "accApi", "label": "JSON", "classification": "fetchJSON" },
+    { "id": "panel-to-paneldb", "from": "panelPhp", "to": "panelDb", "label": "users/classes", "classification": "PDO", "variant": "emphasis" },
+    { "id": "api-to-accdb", "from": "accApi", "to": "accDb", "label": "students", "classification": "SQL", "variant": "emphasis" },
+    { "id": "paneldb-to-dash", "from": "panelDb", "to": "dash", "label": "SELECT", "classification": "read" },
+    { "id": "accdb-to-invoice", "from": "accDb", "to": "invoice", "label": "totalPayable", "classification": "read" }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "سه MySQL",
+      "items": [
+        "پنل: users، classes، attendance — Acc: students هر ترم و receipts",
+        "فروشگاه جدا: orders با student_code از هوک panel-order"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "خواندن و نوشتن Acc",
+      "items": [
+        "SPA با /api/students و /api/receipts می‌نویسد؛ چاپ از totalPayable می‌خواند",
+        "پنل شهریه سطح را روی همان ردیف می‌گذارد؛ مبلغ کتاب فروشگاه روی فیش Acc نمی‌رود"
+      ]
+    }
+  ]
+}

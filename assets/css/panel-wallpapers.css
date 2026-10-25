@@ -1,0 +1,110 @@
+/* Personal wallpapers — Mohammad Akhavan (Arthur night horse) and Matin Mortezapour (Ezio) */
+
+html.lg-wall-akhavan,
+html.lg-wall-akhavan body,
+body.lg-wall-akhavan.lg-app,
+body.lg-wall-akhavan,
+html.lg-wall-matin,
+html.lg-wall-matin body,
+body.lg-wall-matin.lg-app,
+body.lg-wall-matin {
+    background-color: #08060a !important;
+    background-image: none !important;
+}
+
+body.lg-wall-akhavan::before,
+body.lg-wall-matin::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body.lg-wall-akhavan::before {
+    background-image:
+        linear-gradient(180deg, rgba(4, 10, 22, 0.22) 0%, rgba(4, 8, 16, 0.06) 38%, rgba(2, 4, 12, 0.42) 100%),
+        url("/assets/img/wall-akhavan-arthur.jpg?v=2");
+    background-position: center 52%;
+}
+
+body.lg-wall-matin::before {
+    background-image:
+        linear-gradient(180deg, rgba(8, 6, 12, 0.32) 0%, rgba(6, 6, 10, 0.14) 40%, rgba(4, 4, 8, 0.48) 100%),
+        url("/assets/img/wall-matin-ezio.jpg?v=1");
+    background-position: center 30%;
+}
+
+body.lg-wall-akhavan .lg-orbs,
+body.lg-wall-matin .lg-orbs {
+    display: none !important;
+}
+
+body.lg-wall-akhavan .dashboard-layout,
+body.lg-wall-akhavan .main-content-wrapper,
+body.lg-wall-akhavan .main-content-wrapper.lg-stage,
+body.lg-wall-akhavan .main-content,
+body.lg-wall-akhavan .supervisor-main-content,
+body.lg-wall-akhavan .teacher-main-content,
+body.lg-wall-akhavan .consultant-main-content,
+body.lg-wall-matin .dashboard-layout,
+body.lg-wall-matin .main-content-wrapper,
+body.lg-wall-matin .main-content-wrapper.lg-stage,
+body.lg-wall-matin .main-content,
+body.lg-wall-matin .supervisor-main-content,
+body.lg-wall-matin .teacher-main-content,
+body.lg-wall-matin .consultant-main-content {
+    background: transparent !important;
+    background-image: none !important;
+}
+
+body.lg-wall-akhavan .sidebar,
+body.lg-wall-akhavan .mobile-sidebar,
+body.lg-wall-matin .sidebar,
+body.lg-wall-matin .mobile-sidebar {
+    background: rgba(6, 8, 16, 0.52) !important;
+}
+
+body.lg-wall-akhavan .mobile-navbar,
+body.lg-wall-matin .mobile-navbar {
+    background: rgba(6, 8, 16, 0.42) !important;
+}
+
+body.lg-wall-akhavan .card,
+body.lg-wall-akhavan .si-card,
+body.lg-wall-akhavan .eas-card,
+body.lg-wall-akhavan .tp-card,
+body.lg-wall-akhavan .tp-session,
+body.lg-wall-akhavan .plc-card,
+body.lg-wall-akhavan .dashboard-card,
+body.lg-wall-akhavan .supervisor-main-content .row > [class*="col-"] .dashboard-card,
+body.lg-wall-akhavan .supervisor-main-content .row > [class*="col-"] .dashboard-card[class*="bg-"],
+body.lg-wall-matin .card,
+body.lg-wall-matin .si-card,
+body.lg-wall-matin .eas-card,
+body.lg-wall-matin .tp-card,
+body.lg-wall-matin .tp-session,
+body.lg-wall-matin .plc-card,
+body.lg-wall-matin .dashboard-card,
+body.lg-wall-matin .supervisor-main-content .row > [class*="col-"] .dashboard-card,
+body.lg-wall-matin .supervisor-main-content .row > [class*="col-"] .dashboard-card[class*="bg-"] {
+    background: rgba(8, 12, 16, 0.26) !important;
+    backdrop-filter: blur(8px) saturate(120%) !important;
+    -webkit-backdrop-filter: blur(8px) saturate(120%) !important;
+}
+
+body.lg-wall-akhavan .card .card,
+body.lg-wall-matin .card .card {
+    background: rgba(8, 12, 16, 0.20) !important;
+}
+
+body.lg-wall-akhavan .eas-card .sessions-container,
+body.lg-wall-akhavan .eas-card .action-box,
+body.lg-wall-akhavan .eas-card .interview-box,
+body.lg-wall-matin .eas-card .sessions-container,
+body.lg-wall-matin .eas-card .action-box,
+body.lg-wall-matin .eas-card .interview-box {
+    background: rgba(0, 0, 0, 0.12) !important;
+}

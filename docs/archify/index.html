@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>گزارش معماری غزال</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --ink: #142033; --muted: #5b6578; --line: #d7deea; --bg: #f4f7fb; --card: #fff; --rose: #b4233a; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 16px/1.7 Vazirmatn, Tahoma, sans-serif; background: var(--bg); color: var(--ink); }
+    main { max-width: 880px; margin: 0 auto; padding: 40px 20px 64px; }
+    h1 { font-size: 1.7rem; margin: 0 0 8px; }
+    p.lead { color: var(--muted); margin: 0 0 28px; }
+    .grid { display: grid; gap: 16px; }
+    @media (min-width: 720px) { .grid { grid-template-columns: 1fr 1fr; } }
+    a.card { display: block; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; text-decoration: none; color: inherit; }
+    a.card:hover { border-color: #7aa2d6; }
+    a.card.featured { border-color: #c9a46a; background: linear-gradient(180deg, #fffdf8, #fff); }
+    a.card h2 { margin: 0 0 8px; font-size: 1.1rem; }
+    a.card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+    .badge { display: inline-block; font-size: .72rem; font-weight: 700; color: var(--rose); background: #fde8ec; border-radius: 999px; padding: 2px 8px; margin-right: 6px; }
+    .note { margin-top: 28px; font-size: 0.9rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>گزارش سرویس‌ها و دیتابیس غزال</h1>
+    <p class="lead">نسخه ۳۱ شهریور ۱۴۰۵: رول‌کال قابل ادیت، Study Plan، شماره پدر و مادر، الوکام Fall 1، کتاب‌فروشی و Acc. کلید مشترک همه سیستم‌ها شماره پرونده است.</p>
+    <div class="grid">
+      <a class="card featured" href="report.html">
+        <h2><span class="badge">اصلی</span> گزارش HTML کامل</h2>
+        <p>رول‌کال، Study Plan، پروفایل پدر/مادر، فلو پیامک روی شماره قبلی، الوکام، کتاب و Acc.</p>
+      </a>
+      <a class="card" href="ghazal-services.architecture.html">
+        <h2>دیاگرام سرویس‌ها</h2>
+        <p>پنل، حسابداری، فروشگاه کتاب و سه MySQL روی DirectAdmin.</p>
+      </a>
+      <a class="card" href="ghazal-data.dataflow.html">
+        <h2>دیاگرام مسیر داده</h2>
+        <p>از فرم پنل و SPA حسابداری تا MySQL و چاپ فاکتور.</p>
+      </a>
+      <a class="card" href="report-services.md">
+        <h2>گزارش سرویس‌ها و فلوها</h2>
+        <p>ورود، هویت، کلاس، حضور، پیامک، سفارش کتاب، فاکتور، الوکام و فراز.</p>
+      </a>
+      <a class="card" href="report-database.md">
+        <h2>گزارش دیتابیس</h2>
+        <p>جدول‌های ghazali1_panel و ghazali1_Acc و فروشگاه؛ خواندن و نوشتن.</p>
+      </a>
+    </div>
+    <p class="note">عنوان‌های داخل دیاگرام فارسی‌اند. دکمه‌های خود Viewer (تم، جستجو، خروجی) انگلیسی می‌مانند؛ Archify فقط locale انگلیسی و چینی دارد.</p>
+  </main>
+</body>
+</html>

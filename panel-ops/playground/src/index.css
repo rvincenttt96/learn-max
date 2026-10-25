@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Vazirmatn', Tahoma, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --color-moss-950: #0c1612;
+  --color-moss-900: #12201a;
+  --color-moss-800: #1a2d24;
+  --color-moss-700: #243c31;
+  --color-gold-400: #d4b46a;
+  --color-gold-300: #e7cc8a;
+  --color-mist: #d7e4dc;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-moss-950);
+  color: var(--color-mist);
+  font-family: var(--font-sans);
+}
+
+* {
+  box-sizing: border-box;
+}

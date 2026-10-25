@@ -1,0 +1,295 @@
+/* Session Plan — glass red theme */
+
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+.session-main-card,
+.session-details-card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow:
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.session-main-card .card-header,
+.session-details-card .card-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border: none !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 1.25rem 1.5rem !important;
+    font-weight: 600;
+    color: white !important;
+}
+
+.session-class-card {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+    height: 100%;
+    color: var(--text-primary) !important;
+}
+
+.session-class-card:hover {
+    background: rgba(211, 47, 47, 0.15) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(211, 47, 47, 0.3) !important;
+    border-color: var(--red-primary) !important;
+}
+
+.session-form .form-label {
+    font-weight: 500;
+    color: var(--text-light) !important;
+    margin-bottom: 8px;
+    display: block;
+    width: 100%;
+    text-align: left;
+    direction: ltr;
+}
+
+.session-form .form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    padding: 10px 14px !important;
+    font-size: 1rem;
+}
+
+.session-form .form-control:focus {
+    border-color: var(--red-primary) !important;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2) !important;
+}
+
+.session-date-input,
+.session-details-input {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: plaintext;
+}
+
+.session-date-input {
+    cursor: pointer;
+}
+
+.session-details-input {
+    border-radius: 18px !important;
+    min-height: 96px;
+    resize: vertical;
+}
+
+.session-form.is-editing {
+    outline: 1px solid rgba(251, 191, 36, 0.35);
+    outline-offset: 8px;
+    border-radius: 16px;
+}
+
+.session-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.admitted-heading {
+    color: #fda4af !important;
+    direction: ltr;
+    text-align: left;
+}
+
+.session-empty {
+    direction: ltr;
+    text-align: left;
+    color: #94a3b8;
+    padding: 18px 4px 8px;
+}
+
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 24px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.session-details-card .table-responsive,
+.session-details-card .session-table {
+    direction: ltr;
+}
+
+.session-table {
+    margin: 0;
+    min-width: 600px;
+    border-collapse: collapse;
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+}
+
+.session-table thead th {
+    background: rgba(211, 47, 47, 0.3) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600;
+    white-space: nowrap;
+    text-align: left;
+    padding: 14px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.session-table thead th.col-no,
+.session-table thead th.col-action {
+    text-align: center;
+}
+
+.session-table tbody tr {
+    border-bottom: 1px solid var(--card-border);
+    transition: background-color 0.2s ease;
+}
+
+.session-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.session-table tbody tr:hover {
+    background: rgba(211, 47, 47, 0.1) !important;
+}
+
+.session-table tbody tr.is-editing {
+    background: rgba(251, 191, 36, 0.12) !important;
+}
+
+.session-table tbody td {
+    padding: 14px 12px;
+    vertical-align: middle;
+    text-align: left;
+    color: var(--text-light) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.session-table tbody td.no-cell,
+.session-table tbody td.action-cell {
+    text-align: center;
+}
+
+.session-table tbody td.date-cell {
+    direction: ltr;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.session-table tbody td.plan-cell {
+    white-space: pre-line;
+    text-align: left;
+    direction: ltr;
+}
+
+.plan-actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.delete-btn {
+    background: rgba(244, 67, 54, 0.2) !important;
+    border: 1px solid rgba(244, 67, 54, 0.4) !important;
+    color: #ffcccb !important;
+    border-radius: 6px !important;
+    padding: 4px 10px !important;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.delete-btn:hover {
+    background: rgba(244, 67, 54, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+.edit-btn {
+    background: rgba(251, 191, 36, 0.16) !important;
+    border: 1px solid rgba(251, 191, 36, 0.42) !important;
+    color: #fde68a !important;
+    border-radius: 6px !important;
+    padding: 4px 10px !important;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.edit-btn:hover {
+    background: rgba(251, 191, 36, 0.28) !important;
+    transform: translateY(-2px);
+}
+
+.session-action-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+    min-width: 120px;
+}
+
+.session-action-btn:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+.session-action-btn.btn-primary {
+    background: linear-gradient(135deg, #b71c1c, #dc2626) !important;
+    border-color: transparent !important;
+}
+
+@media (max-width: 768px) {
+    .card-header {
+        padding: 1rem !important;
+        text-align: center;
+    }
+
+    .session-form .form-control {
+        font-size: 1.15rem;
+    }
+
+    .session-form-actions .session-action-btn {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .session-table {
+        min-width: 550px;
+    }
+
+    .session-table thead th,
+    .session-table tbody td {
+        padding: 12px 8px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .session-table {
+        min-width: 500px;
+    }
+
+    .delete-btn,
+    .edit-btn {
+        padding: 6px 12px !important;
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,50 @@
+/* Teacher 5011 only — loaded only when username is exactly 5011 */
+html.lg-moon-5011,
+html.lg-moon-5011 body,
+body.lg-moon-5011.lg-app,
+body.lg-moon-5011 {
+    background-color: #02040c !important;
+    background-image: none !important;
+}
+
+body.lg-moon-5011::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("/assets/img/teacher-5011-moon.jpg");
+    background-position: center 36%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body.lg-moon-5011 .lg-orbs {
+    display: none !important;
+}
+
+body.lg-moon-5011 .dashboard-layout,
+body.lg-moon-5011 .main-content-wrapper,
+body.lg-moon-5011 .main-content-wrapper.lg-stage,
+body.lg-moon-5011 .main-content {
+    background: transparent !important;
+    background-image: none !important;
+}
+
+body.lg-moon-5011 .sidebar,
+body.lg-moon-5011 .mobile-sidebar {
+    background: rgba(6, 8, 16, 0.52) !important;
+}
+
+body.lg-moon-5011 .mobile-navbar {
+    background: rgba(6, 8, 16, 0.42) !important;
+}
+
+body.lg-moon-5011 .teacher-main-content .dashboard-card,
+body.lg-moon-5011 .tp-card,
+body.lg-moon-5011 .tp-session {
+    background: rgba(10, 12, 22, 0.58) !important;
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border-color: rgba(201, 164, 106, 0.28) !important;
+}

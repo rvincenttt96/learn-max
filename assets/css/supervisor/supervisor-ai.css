@@ -1,0 +1,409 @@
+/* Supervisor AI assistant — read-only chat dock */
+
+.sai-root {
+    font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif;
+}
+
+.sai-toggle {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 1400;
+    width: 56px;
+    height: 56px;
+    border: 1px solid rgba(239, 68, 68, 0.45);
+    border-radius: 18px;
+    background: rgba(12, 10, 16, 0.72);
+    color: #fecaca;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 18px rgba(220, 38, 38, 0.25);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sai-toggle svg {
+    width: 26px;
+    height: 26px;
+}
+
+.sai-toggle:hover {
+    border-color: rgba(248, 113, 113, 0.8);
+    color: #fff;
+}
+
+.sai-panel {
+    position: fixed;
+    left: 20px;
+    bottom: 88px;
+    z-index: 1400;
+    width: min(400px, calc(100vw - 24px));
+    height: min(560px, calc(100dvh - 120px));
+    display: none;
+    flex-direction: column;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(8, 10, 16, 0.78);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+    left: 20px;
+    bottom: 88px;
+    z-index: 1400;
+    width: min(400px, calc(100vw - 24px));
+    height: min(560px, calc(100dvh - 120px));
+    display: none;
+    flex-direction: column;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(8, 10, 16, 0.78);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.sai-root.is-open .sai-panel {
+    display: flex;
+}
+
+.sai-head-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.sai-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.sai-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    border-radius: 999px;
+    font-size: 11px;
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+.sai-stat b {
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+}
+
+.sai-stat.is-like {
+    border-color: rgba(52, 211, 153, 0.35);
+    color: #a7f3d0;
+}
+
+.sai-stat.is-dislike {
+    border-color: rgba(248, 113, 113, 0.4);
+    color: #fecaca;
+}
+
+.sai-turn {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 100%;
+}
+
+.sai-turn.is-user {
+    align-items: flex-end;
+}
+
+.sai-turn.is-bot,
+.sai-turn.is-err {
+    align-items: flex-start;
+}
+
+.sai-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-inline-start: 2px;
+}
+
+.sai-act {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    border-radius: 999px;
+    font-size: 11.5px;
+    padding: 4px 10px;
+    cursor: pointer;
+}
+
+.sai-act:hover {
+    color: #fff;
+    border-color: rgba(248, 113, 113, 0.55);
+}
+
+.sai-act.is-on {
+    color: #fff;
+    border-color: rgba(248, 113, 113, 0.7);
+    background: rgba(190, 18, 60, 0.45);
+}
+
+.sai-act-like.is-on {
+    border-color: rgba(52, 211, 153, 0.7);
+    background: rgba(6, 95, 70, 0.55);
+}
+
+.sai-act:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.sai-toast {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 72px;
+    z-index: 5;
+    text-align: center;
+    font-size: 12.5px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(6, 95, 70, 0.92);
+    color: #ecfdf5;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+}
+
+.sai-toast.is-err {
+    background: rgba(127, 29, 29, 0.94);
+    color: #fecaca;
+}
+
+.sai-toast.is-out {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.22s, transform 0.22s;
+}
+
+.sai-head h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #f8fafc;
+}
+
+.sai-head p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.sai-log {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sai-bubble {
+    max-width: 92%;
+    padding: 9px 12px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.sai-bubble.is-bot {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.07);
+    color: #e2e8f0;
+}
+
+.sai-bubble.is-user {
+    align-self: flex-end;
+    background: rgba(190, 18, 60, 0.72);
+    color: #fff;
+}
+
+.sai-bubble.is-err {
+    background: rgba(127, 29, 29, 0.45);
+    color: #fecaca;
+}
+
+.sai-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 14px 8px;
+}
+
+.sai-chip {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+    border-radius: 999px;
+    font-size: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.sai-chip:hover {
+    border-color: rgba(248, 113, 113, 0.55);
+    color: #fff;
+}
+
+.sai-form {
+    display: flex;
+    gap: 8px;
+    padding: 10px 12px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sai-form textarea {
+    flex: 1;
+    resize: none;
+    min-height: 42px;
+    max-height: 96px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.28);
+    color: #f8fafc;
+    padding: 8px 10px;
+    font-size: 13.5px;
+}
+
+.sai-form textarea:focus {
+    outline: none;
+    border-color: rgba(248, 113, 113, 0.55);
+}
+
+.sai-form button {
+    border: 0;
+    border-radius: 12px;
+    background: #be123c;
+    color: #fff;
+    padding: 0 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sai-form button:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+@media (max-width: 767.98px) {
+    .sai-toggle {
+        left: 12px;
+        bottom: 12px;
+    }
+    .sai-panel {
+        left: 8px;
+        right: 8px;
+        width: auto;
+        bottom: 76px;
+        height: min(70dvh, 560px);
+    }
+}
+
+/* Full-page AI Assistance */
+
+.sai-page-wrap {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 20px);
+    height: calc(100dvh - 20px);
+    margin: -10px;
+}
+
+@media (max-width: 991.98px) {
+    .sai-page-wrap {
+        min-height: calc(100dvh - 64px);
+        height: calc(100dvh - 64px);
+        margin: -12px -10px -28px;
+    }
+}
+
+.sai-root.is-page {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sai-root.is-page .sai-toggle {
+    display: none;
+}
+
+.sai-root.is-page .sai-panel {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    border-radius: 0;
+    box-shadow: none;
+    background: rgba(8, 10, 16, 0.62);
+}
+
+.sai-root.is-page .sai-head {
+    padding: 18px 20px 12px;
+}
+
+.sai-root.is-page .sai-stat {
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+.sai-root.is-page .sai-act {
+    font-size: 12.5px;
+    padding: 5px 12px;
+}
+
+.sai-root.is-page .sai-head h2 {
+    font-size: 18px;
+}
+
+.sai-root.is-page .sai-log {
+    padding: 16px 20px;
+}
+
+.sai-root.is-page .sai-bubble {
+    font-size: 14.5px;
+    max-width: min(720px, 78%);
+}
+
+.sai-root.is-page .sai-chips {
+    padding: 0 20px 10px;
+}
+
+.sai-root.is-page .sai-form {
+    padding: 12px 20px 16px;
+}
+
+.sai-root.is-page .sai-form textarea {
+    min-height: 48px;
+    font-size: 14.5px;
+}
+
+@media (max-width: 767.98px) {
+    .sai-root.is-page .sai-bubble {
+        max-width: 92%;
+    }
+}

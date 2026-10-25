@@ -1,0 +1,60 @@
+/* Student dashboard tiles */
+
+.dashboard-card {
+    border-radius: 18px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.dashboard-card h5 {
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-card p {
+    color: #cbd5e1;
+    margin: 0;
+}
+
+.card-icon {
+    width: 74px;
+    height: 74px;
+    border-radius: 22px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-icon svg {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+.student-main-content .bg-psych {
+    background: linear-gradient(160deg, rgba(91, 33, 182, 0.55), rgba(127, 29, 29, 0.35));
+}
+.student-main-content .bg-psych .card-icon {
+    background: rgba(168, 85, 247, 0.28);
+    color: #e9d5ff;
+}
+
+@media (max-width: 576px) {
+    .dashboard-card {
+        padding: 1rem;
+    }
+    .dashboard-card h5 {
+        font-size: 1rem;
+    }
+    .card-icon {
+        width: 62px;
+        height: 62px;
+    }
+    .card-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+}

@@ -1,0 +1,3 @@
+# panel.ghazalify.com — login and dashboards are not for search engines
+User-agent: *
+Disallow: /

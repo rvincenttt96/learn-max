@@ -1,0 +1,422 @@
+@font-face {
+  font-family: 'YekanBakhFaNum';
+  src: url("/fonts/YekanBakhFaNum-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+/* دارک‌مود + شیشه‌ای با تم قرمز */
+:root {
+    --dark-bg: #08080C;
+    --darker-bg: #08080C;
+    --card-bg: rgba(14, 14, 22, 0.72);
+    --card-border: rgba(127, 29, 29, 0.32);
+    --text: #e2e8f0;
+    --text-light: #fca5a5;
+    --primary: #dc2626;
+    --primary-light: #f87171;
+}
+
+body {
+	font-family: 'YekanBakhFaNum', Tahoma, Arial, sans-serif !important;
+    background: #08080C !important;
+    color: var(--text) !important;
+    min-height: 100vh;
+}
+
+/* هدر داشبورد */
+.dashboard-header {
+    background: rgba(14, 14, 22, 0.72);
+    border: 1px solid rgba(127, 29, 29, 0.32);
+    border-radius: 18px;
+    padding: 1.4rem !important;
+    margin-bottom: 1.8rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* کارت‌های شیشه‌ای */
+.dashboard-card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border) !important;
+    border-radius: 18px !important;
+    padding: 24px 20px !important;
+    text-align: center;
+    height: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2) !important;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(211, 47, 47, 0.4) !important;
+    box-shadow: 0 10px 25px rgba(211, 47, 47, 0.25) !important;
+}
+
+.dashboard-card a {
+    text-decoration: none !important;
+    color: inherit !important;
+    height: 100%;
+    display: block;
+}
+
+.card-icon {
+    font-size: 2.2rem !important;
+    margin-bottom: 14px !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* رنگ‌های کارت‌ها با گرادیانت قرمز */
+.bg-class { background: linear-gradient(120deg, rgba(211,47,47,0.2), rgba(183,28,28,0.2)) !important; }
+.bg-quiz { background: linear-gradient(120deg, rgba(255,82,82,0.2), rgba(211,47,47,0.2)) !important; }
+.bg-quizbuilder { background: linear-gradient(120deg, rgba(20,184,166,0.22), rgba(139,92,246,0.18)) !important; }
+.bg-quizbooks { background: linear-gradient(120deg, rgba(99,102,241,0.22), rgba(6,182,212,0.18)) !important; }
+.bg-attendance { background: linear-gradient(120deg, rgba(244,67,54,0.2), rgba(198,40,40,0.2)) !important; }
+.bg-homework { background: linear-gradient(120deg, rgba(183,28,28,0.2), rgba(139,0,0,0.2)) !important; }
+.bg-assignment { background: linear-gradient(120deg, rgba(59,130,246,0.22), rgba(14,165,233,0.18)) !important; }
+.bg-session { background: linear-gradient(120deg, rgba(229,57,53,0.2), rgba(183,28,28,0.2)) !important; }
+.bg-termplan { background: linear-gradient(120deg, rgba(6,182,212,0.22), rgba(14,165,233,0.18)) !important; }
+.bg-held { background: linear-gradient(120deg, rgba(139,0,0,0.2), rgba(211,47,47,0.2)) !important; }
+.bg-error { background: linear-gradient(120deg, rgba(244,67,54,0.2), rgba(139,0,0,0.2)) !important; }
+.bg-remark { background: linear-gradient(120deg, rgba(183,28,28,0.2), rgba(110,0,0,0.2)) !important; }
+.bg-message { background: linear-gradient(120deg, rgba(255,82,82,0.2), rgba(183,28,28,0.2)) !important; }
+.bg-observation { background: linear-gradient(120deg, rgba(229,57,53,0.2), rgba(211,47,47,0.2)) !important; }
+
+/* دکمه خروج */
+.btn-logout {
+    background: rgba(255,255,255,0.15) !important;
+    border: 1px solid rgba(211, 47, 47, 0.25) !important;
+    color: white !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* فرم‌ها و جدول‌ها */
+.card {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    backdrop-filter: blur(8px) !important;
+}
+
+.form-control, .form-select {
+    background: rgba(0,0,0,0.3) !important;
+    border: 1px solid rgba(211, 47, 47, 0.3) !important;
+    color: white !important;
+}
+
+
+
+.text-decoration-none {
+    text-decoration: none !important;
+    color: #ffff;
+}
+
+.table {
+    color: var(--text) !important;
+}
+.table-light {
+    background: rgba(211, 47, 47, 0.15) !important;
+    color: white !important;
+}
+
+/* منوی کناری (نسخه قرمز) */
+.sidebar {
+    background: rgba(11, 11, 16, 0.9) !important;
+    backdrop-filter: blur(40px) !important;
+    border-left: 1px solid rgba(127, 29, 29, 0.3) !important;
+}
+.sidebar-header {
+    background: transparent !important;
+}
+.sidebar-nav .nav-item,
+.mobile-sidebar .nav-item {
+    color: #cbd5e1 !important;
+    border-right: 1px solid transparent !important;
+}
+.sidebar-nav .nav-item:hover,
+.mobile-sidebar .nav-item:hover {
+    color: #fff !important;
+    background: rgba(127, 29, 29, 0.28) !important;
+}
+.sidebar-nav .nav-item.active,
+.mobile-sidebar .nav-item.active {
+    color: #fff !important;
+    background: linear-gradient(90deg, #dc2626, #be123c) !important;
+    border-right-color: transparent !important;
+    box-shadow: 0 0 22px rgba(220, 38, 38, 0.35) !important;
+}
+
+
+@media (max-width: 992px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        transform: translateX(100%);
+    }
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    .toggle-btn {
+        display: block;
+        background: #d32f2f;
+    }
+    .main-content {
+        padding: 20px 16px;
+    }
+    body {
+        overflow-x: hidden;
+    }
+}
+
+@media (max-width: 576px) {
+	h5.mb-1 {
+    font-size: 1rem;
+}
+    .dashboard-header h1 {
+        font-size: 1.4rem !important;
+    }
+    .card-icon {
+        font-size: 1.8rem !important;
+    }
+    .dashboard-card {
+        padding: 20px 16px !important;
+    }
+}
+
+/* ========== Layout: sidebar scroll, icons, responsive pages ========== */
+html {
+    max-width: 100%;
+}
+body {
+    overflow-x: hidden;
+}
+
+.dashboard-layout {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    align-items: stretch;
+    width: 100%;
+}
+
+.sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+}
+
+.sidebar-header {
+    flex-shrink: 0;
+}
+
+.sidebar-nav {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 28px !important;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: rgba(211, 47, 47, 0.55);
+    border-radius: 8px;
+}
+
+.nav-icon {
+    width: 36px !important;
+    height: 36px !important;
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+.nav-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+    max-width: 22px !important;
+    max-height: 22px !important;
+    display: block;
+}
+
+.mobile-sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    max-height: 100dvh;
+}
+.mobile-sidebar .sidebar-nav {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+}
+
+.main-content-wrapper {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+.main-content {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.table-responsive,
+.table-responsive-custom {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+img, svg, video, canvas {
+    max-width: 100%;
+}
+
+.card, .modal-content {
+    max-width: 100%;
+}
+
+/* Dark-theme tables (override Bootstrap table-light) */
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: #ffd1d1;
+    --bs-table-border-color: rgba(211, 47, 47, 0.2);
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.08);
+    --bs-table-hover-color: #ffffff;
+    color: #ffd1d1 !important;
+}
+.table > :not(caption) > * > * {
+    background-color: transparent;
+    color: inherit;
+    border-bottom-color: rgba(211, 47, 47, 0.18);
+}
+.table thead th,
+.table .table-light,
+.table-light {
+    background: rgba(183, 28, 28, 0.55) !important;
+    color: #fff !important;
+    --bs-table-bg: rgba(183, 28, 28, 0.55) !important;
+    --bs-table-color: #fff !important;
+    --bs-table-striped-bg: rgba(183, 28, 28, 0.55) !important;
+}
+
+.form-select option {
+    background: #12121C;
+    color: #fff;
+}
+
+@media (max-width: 991.98px) {
+    .dashboard-layout {
+        flex-direction: column;
+        overflow: visible !important;
+        min-height: auto;
+    }
+    .main-content-wrapper {
+        height: auto !important;
+        min-height: calc(100dvh - 56px) !important;
+        overflow: visible !important;
+        width: 100% !important;
+    }
+    .main-content {
+        min-height: auto !important;
+        padding: 12px !important;
+    }
+    .w-25 {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .main-content {
+        padding: 8px !important;
+    }
+    .card-header, .card-body {
+        padding: 12px !important;
+    }
+    .table {
+        font-size: 0.82rem;
+    }
+    .btn, .form-control, .form-select {
+        font-size: 0.9rem;
+    }
+    h1 { font-size: 1.25rem !important; }
+    h5 { font-size: 1rem !important; }
+    .col-lg-2, .col-lg-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* Mind Lingo — dark RTL */
+.mind-lingo-page {
+    direction: rtl;
+    text-align: right;
+    color: #ffd1d1;
+}
+.mind-lingo-page .card-header {
+    background: linear-gradient(90deg, #b71c1c, #d32f2f) !important;
+    color: #fff !important;
+    border-bottom: none;
+}
+.mind-lingo-page .form-label,
+.mind-lingo-page label {
+    color: #ffd1d1;
+    text-align: right;
+}
+.mind-lingo-page .table {
+    text-align: right;
+}
+.mind-lingo-page .table th,
+.mind-lingo-page .table td {
+    vertical-align: middle;
+}
+.mind-lingo-page .modal-content {
+    background: #161022;
+    color: #ffd1d1;
+    border: 1px solid rgba(211, 47, 47, 0.35);
+}
+.mind-lingo-page .modal-header {
+    background: linear-gradient(90deg, #b71c1c, #d32f2f) !important;
+    color: #fff !important;
+    border-bottom: none;
+}
+.mind-lingo-page .modal-footer {
+    background: #120c1c;
+    border-top: 1px solid rgba(211, 47, 47, 0.25);
+}
+.mind-lingo-page .modal-body {
+    text-align: right;
+}
+.mind-lingo-page .note-box {
+    background: rgba(0, 0, 0, 0.35);
+    color: #ffd1d1;
+    border: 1px solid rgba(211, 47, 47, 0.25);
+    border-radius: 10px;
+    min-height: 100px;
+    white-space: pre-wrap;
+}
+.mind-lingo-page .ltr-num {
+    direction: ltr;
+    unicode-bidi: isolate;
+    display: inline-block;
+}
+.mind-lingo-page .progress {
+    background: rgba(255, 255, 255, 0.12);
+    direction: ltr;
+}
+.mind-lingo-page .form-range {
+    direction: ltr;
+}
+.mind-lingo-page .range-value {
+    background: #d32f2f;
+}

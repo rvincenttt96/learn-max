@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>گزارش معماری غزال · شهریور ۱۴۰۵</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #12182a;
+      --muted: #5a6478;
+      --line: #d9e0ec;
+      --bg: #f3f6fb;
+      --card: #fff;
+      --navy: #0e1630;
+      --gold: #c9a46a;
+      --rose: #b4233a;
+      --ok: #0f7a5a;
+      --wait: #b45309;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font: 16px/1.85 Vazirmatn, Tahoma, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    a { color: #1f4f8a; }
+    .hero {
+      background:
+        radial-gradient(900px 420px at 10% -10%, rgba(201,164,106,.28), transparent 55%),
+        linear-gradient(160deg, #0b1228 0%, #182445 55%, #0e1630 100%);
+      color: #f6f1e8;
+      padding: 48px 20px 40px;
+    }
+    .hero-inner { max-width: 1080px; margin: 0 auto; }
+    .kicker {
+      display: inline-flex; gap: 8px; align-items: center;
+      color: var(--gold); font-size: .82rem; letter-spacing: .08em; font-weight: 700;
+    }
+    .kicker i { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); display: inline-block; }
+    h1 { font-size: clamp(1.6rem, 3vw, 2.35rem); margin: 10px 0 8px; font-weight: 800; }
+    .hero p { margin: 0; max-width: 48rem; color: #d5dbea; }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .pill {
+      border: 1px solid rgba(201,164,106,.4); color: #f3e7cf; border-radius: 999px;
+      padding: 4px 12px; font-size: .82rem; background: rgba(255,255,255,.04);
+    }
+    nav.toc {
+      position: sticky; top: 0; z-index: 20; background: rgba(243,246,251,.92);
+      backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+    }
+    nav.toc .wrap {
+      max-width: 1080px; margin: 0 auto; padding: 10px 20px;
+      display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    }
+    nav.toc a {
+      white-space: nowrap; text-decoration: none; color: var(--muted);
+      font-size: .86rem; padding: 6px 12px; border-radius: 999px; border: 1px solid transparent;
+    }
+    nav.toc a:hover { color: var(--ink); border-color: var(--line); background: #fff; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px 20px 80px; }
+    section { margin: 0 0 36px; }
+    h2 { font-size: 1.28rem; margin: 0 0 12px; }
+    h3 { font-size: 1.02rem; margin: 22px 0 8px; }
+    .lead { color: var(--muted); margin: 0 0 18px; }
+    .grid { display: grid; gap: 14px; }
+    @media (min-width: 760px) {
+      .g2 { grid-template-columns: 1fr 1fr; }
+      .g3 { grid-template-columns: 1fr 1fr 1fr; }
+      .g4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    }
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 18px 16px;
+    }
+    .card h3 { margin: 0 0 6px; }
+    .card p, .card li { color: #2c3548; }
+    .card ul { margin: 8px 0 0; padding: 0 18px 0 0; }
+    .tag {
+      display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .04em;
+      padding: 2px 8px; border-radius: 999px; margin-left: 6px; vertical-align: 2px;
+    }
+    .tag-new { background: #fde8ec; color: var(--rose); }
+    .tag-live { background: #e8f7f1; color: var(--ok); }
+    .tag-acc { background: #ece7fb; color: #5b3db8; }
+    .tag-sms { background: #e8f0fb; color: #1f4f8a; }
+    table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    th, td { text-align: right; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; font-size: .8rem; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .84em; background: #eef2f8; padding: 1px 6px; border-radius: 6px; }
+    .map {
+      background: #0e1630; color: #e8edf8; border-radius: 20px; padding: 22px 16px; overflow-x: auto;
+    }
+    .map svg { display: block; margin: 0 auto; min-width: 720px; }
+    .flow { display: grid; gap: 10px; }
+    @media (min-width: 900px) { .flow { grid-template-columns: repeat(5, 1fr); } }
+    @media (min-width: 700px) and (max-width: 899px) { .flow-4 { grid-template-columns: repeat(2, 1fr); } }
+    .step {
+      background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px;
+      position: relative;
+    }
+    .step b { display: block; color: var(--rose); font-size: .78rem; margin-bottom: 4px; }
+    .step strong { display: block; margin-bottom: 4px; }
+    .step span { color: var(--muted); font-size: .88rem; }
+    .callout {
+      border-right: 4px solid var(--gold); background: #fff8ee; padding: 12px 16px; border-radius: 0 12px 12px 0;
+    }
+    .callout.warn { border-color: var(--rose); background: #fff4f5; }
+    .callout.ok { border-color: var(--ok); background: #f1fbf6; }
+    .card-num {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; font-size: 1.15rem; direction: ltr; text-align: left;
+    }
+    .money { font-weight: 800; font-size: 1.35rem; }
+    footer.note, .note { color: var(--muted); font-size: .88rem; }
+    .links a { display: inline-block; margin: 0 0 0 12px; }
+    .status { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; font-weight: 700; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot.wait { background: var(--wait); }
+    .dot.ok { background: var(--ok); }
+    .dot.acc { background: #5b3db8; }
+    .dot.shop { background: #1f4f8a; }
+    @media print {
+      nav.toc { display: none; }
+      .hero { padding: 20px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      a { text-decoration: none; color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="kicker"><i></i> GHAZAL · ARCHITECTURE</div>
+      <h1>گزارش سرویس‌ها، داده، پیامک و کتاب‌فروشی</h1>
+      <p>نقشه زنده پنل آموزشی، حسابداری، فروشگاه کتاب و سه MySQL. این نسخه اپدیت رول‌کال سوپروایزر، Study Plan، شماره پدر و مادر، الوکام Fall 1، و همان جریان کتاب را دارد. پیامک‌ها هنوز به شماره تماس قبلی پرونده می‌روند.</p>
+      <div class="meta">
+        <span class="pill">۲۲ سپتامبر ۲۰۲۶ · ۳۱ شهریور ۱۴۰۵</span>
+        <span class="pill">panel.ghazalify.com</span>
+        <span class="pill">acccounting.ghazalify.com</span>
+        <span class="pill">books.ghazalify.com</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="فهرست">
+    <div class="wrap">
+      <a href="#map">نقشه</a>
+      <a href="#rollcall">رول‌کال</a>
+      <a href="#study">Study Plan</a>
+      <a href="#profile">پروفایل</a>
+      <a href="#sms">پیامک</a>
+      <a href="#alocom">الوکام</a>
+      <a href="#bookstore">سفارش کتاب</a>
+      <a href="#acc-books">Acc Bookstore</a>
+      <a href="#pay">کارت و پست</a>
+      <a href="#services">سرویس‌ها</a>
+      <a href="#data">دیتابیس</a>
+      <a href="#updates">اپدیت‌های اخیر</a>
+      <a href="ghazal-services.architecture.html">دیاگرام Archify</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="map">
+      <h2>نقشه سرویس‌ها</h2>
+      <p class="lead">پذیرش Acc و دانش‌آموز پنل هر دو به فروشگاه کتاب وصل می‌شوند؛ یکی برای دیدن سفارش تأییدشده، یکی برای ساخت سفارش. پیامک و اتاق آنلاین بیرون از این سه MySQL می‌مانند.</p>
+      <div class="map" aria-hidden="true">
+        <svg viewBox="0 0 980 340" width="100%" height="340" role="img">
+          <defs>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c9a46a"/></marker>
+          </defs>
+          <rect x="24" y="18" width="932" height="304" rx="18" fill="none" stroke="rgba(201,164,106,.35)"/>
+          <text x="48" y="46" fill="#c9a46a" font-size="13" font-family="Vazirmatn, sans-serif">DirectAdmin · ghazali1</text>
+
+          <rect x="48" y="78" width="160" height="58" rx="12" fill="#1b2748" stroke="#c9a46a"/>
+          <text x="128" y="103" text-anchor="middle" fill="#fff" font-size="14" font-family="Vazirmatn, sans-serif">زبان‌آموز</text>
+          <text x="128" y="122" text-anchor="middle" fill="#9aa6c4" font-size="11" font-family="Vazirmatn, sans-serif">مرورگر پنل</text>
+
+          <rect x="268" y="78" width="180" height="58" rx="12" fill="#24345e" stroke="#7aa2d6"/>
+          <text x="358" y="103" text-anchor="middle" fill="#fff" font-size="14" font-family="Vazirmatn, sans-serif">پنل آموزشی</text>
+          <text x="358" y="122" text-anchor="middle" fill="#9aa6c4" font-size="11" font-family="Vazirmatn, sans-serif">PHP · bookstore.php</text>
+
+          <rect x="518" y="78" width="170" height="58" rx="12" fill="#15203c" stroke="#5b8fc9"/>
+          <text x="603" y="103" text-anchor="middle" fill="#fff" font-size="14" font-family="Vazirmatn, sans-serif">MySQL پنل</text>
+          <text x="603" y="122" text-anchor="middle" fill="#9aa6c4" font-size="11" font-family="Vazirmatn, sans-serif">ghazali1_panel</text>
+
+          <rect x="268" y="188" width="180" height="58" rx="12" fill="#3a1d2a" stroke="#e08aa0"/>
+          <text x="358" y="213" text-anchor="middle" fill="#fff" font-size="14" font-family="Vazirmatn, sans-serif">فروشگاه کتاب</text>
+          <text x="358" y="232" text-anchor="middle" fill="#e3b7c3" font-size="11" font-family="Vazirmatn, sans-serif">books.ghazalify.com</text>
+
+          <rect x="518" y="188" width="170" height="58" rx="12" fill="#2a1520" stroke="#e08aa0"/>
+          <text x="603" y="213" text-anchor="middle" fill="#fff" font-size="14" font-family="Vazirmatn, sans-serif">MySQL فروشگاه</text>
+          <text x="603" y="232" text-anchor="middle" fill="#e3b7c3" font-size="11" font-family="Vazirmatn, sans-serif">orders · settings</text>
+
+          <rect x="740" y="78" width="180" height="58" rx="12" fill="#2a2148" stroke="#b9a6ef"/>
+          <text x="830" y="103" text-anchor="middle" fill="#fff" font-size="14" font-family="Vazirmatn, sans-serif">حسابداری Acc</text>
+          <text x="830" y="122" text-anchor="middle" fill="#c8bcef" font-size="11" font-family="Vazirmatn, sans-serif">SPA + overlay</text>
+
+          <rect x="740" y="188" width="180" height="58" rx="12" fill="#1d1836" stroke="#b9a6ef"/>
+          <text x="830" y="213" text-anchor="middle" fill="#fff" font-size="14" font-family="Vazirmatn, sans-serif">MySQL Acc</text>
+          <text x="830" y="232" text-anchor="middle" fill="#c8bcef" font-size="11" font-family="Vazirmatn, sans-serif">ghazali1_Acc</text>
+
+          <line x1="208" y1="107" x2="268" y2="107" stroke="#c9a46a" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="448" y1="107" x2="518" y2="107" stroke="#7aa2d6" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="358" y1="136" x2="358" y2="188" stroke="#e08aa0" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="448" y1="217" x2="518" y2="217" stroke="#e08aa0" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="830" y1="136" x2="830" y2="188" stroke="#b9a6ef" stroke-width="2" marker-end="url(#arr)"/>
+          <path d="M740,107 C680,107 680,217 448,217" fill="none" stroke="#b9a6ef" stroke-width="2" marker-end="url(#arr)"/>
+          <text x="560" y="160" fill="#c8bcef" font-size="11" font-family="Vazirmatn, sans-serif">acc-orders / acc-receipt</text>
+          <text x="372" y="168" fill="#e3b7c3" font-size="11" font-family="Vazirmatn, sans-serif">panel-order</text>
+        </svg>
+      </div>
+    </section>
+
+    <section id="rollcall">
+      <h2>رول‌کال سوپروایزر <span class="tag tag-new">جدید</span></h2>
+      <p class="lead">صفحه <code>dashboard/supervisor/attendance.php</code> دیگر فقط نمایش نیست. سوپروایزر وضعیت هر دانش‌آموز را در همان جلسه از غایب به حاضر و برعکس عوض می‌کند.</p>
+      <div class="grid g3">
+        <article class="card">
+          <h3>ادیت وضعیت</h3>
+          <p>مودال جزئیات جلسه دکمه حاضر / غایب دارد. ذخیره با <code>ajax-update-attendance.php</code> می‌رود به <code>rollcall_supervisor_set_status</code>.</p>
+        </article>
+        <article class="card">
+          <h3>پیامک غیبت</h3>
+          <p>فقط وقتی وضعیت تازه غایب شود و قبلاً برای آن جلسه پیامک نرفته باشد. مقصد همان <code>users.phone</code> است. اگر حاضر شود، لاگ پیامک آن جلسه پاک می‌شود تا بعداً دوباره بشود زد.</p>
+        </article>
+        <article class="card">
+          <h3>حضور معلم و کرون</h3>
+          <p>معلم همچنان از صفحه کلاس ذخیره می‌کند. آنلاین ۳۰ تا ۵۰ دقیقه بعد از شروع از ترافیک الوکام می‌آید. هشدار Mattermost نبودن رول‌کال یک‌بار است.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="study">
+      <h2>Study Plan <span class="tag tag-new">جدید</span></h2>
+      <p class="lead">آیتم سایدبار سوپروایزر، صفحه <code>study-plan.php</code>، ارسال تکی یا گروهی. متن برای اولیا گرامی با فامیل دانش‌آموز است.</p>
+      <div class="flow flow-4" style="margin-bottom:16px">
+        <div class="step"><b>۱</b><strong>لیست دانش‌آموز</strong><span>جستجوی زنده؛ نشان می‌دهد شماره تماس دارد یا نه.</span></div>
+        <div class="step"><b>۲</b><strong>ارسال</strong><span><code>study-plan-send.php</code> → <code>rollcall_notify_study_plan</code>.</span></div>
+        <div class="step"><b>۳</b><strong>پترن فراز</strong><span><code>zy6PWPVSVS</code> متغیر <code>family</code>. در پنل فراز active است.</span></div>
+        <div class="step"><b>۴</b><strong>مقصد</strong><span>همان شماره تماس پرونده. شماره پدر و مادر در این فلو نیستند.</span></div>
+      </div>
+      <p class="callout ok">لاگ تکرار در جدول <code>study_plan_sms_log</code> است (<code>user_id</code>, فرستنده، فامیل، شماره). متن پیام در MySQL ذخیره نمی‌شود.</p>
+    </section>
+
+    <section id="profile">
+      <h2>پروفایل دانش‌آموز · شماره پدر و مادر <span class="tag tag-live">لایو</span></h2>
+      <p class="lead">صفحه My Profile دو کادر جدا دارد. دانش‌آموز می‌تواند ذخیره کند. اختیاری است؛ اگر پر شود باید موبایل ۱۱ رقمی مثل <code>09123456789</code> باشد.</p>
+      <div class="grid g2">
+        <article class="card">
+          <h3>ذخیره</h3>
+          <ul>
+            <li>فرم <code>dashboard/student/profile.php</code></li>
+            <li>ثبت با <code>update-profile.php</code></li>
+            <li>ستون‌ها: <code>users.father_phone</code> و <code>users.mother_phone</code> (VARCHAR ۲۰، nullable)</li>
+            <li>اولین باز شدن پروفایل اگر ستون نباشد <code>ALTER</code> می‌زند</li>
+            <li>کادر <strong>شماره تماس</strong> سر جایش است</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>چه چیزی عوض نشده</h3>
+          <ul>
+            <li>هیچ پیامکی به پدر یا مادر نمی‌رود</li>
+            <li>خوش‌آمد، غیبت، تأخیر، Study Plan همان <code>phone</code> را می‌زنند</li>
+            <li>Acc و الوکام هنوز همان شماره پرونده را می‌شناسند</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="sms">
+      <h2>فلو پیامک <span class="tag tag-sms">بدون تغییر مقصد</span></h2>
+      <p class="lead">همه الگوها از <code>includes/sms.php</code> با <code>POST /ws/v1/sms/pattern</code> می‌روند، خط <code>90008361</code>. شماره مقصد همیشه <code>users.phone</code> است.</p>
+      <div class="card" style="overflow:auto">
+        <table>
+          <thead>
+            <tr><th>نوع</th><th>تابع</th><th>پترن</th><th>متغیر</th><th>مقصد</th><th>لاگ تکرار</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>خوش‌آمد</td><td><code>identity_maybe_welcome_sms</code></td><td><code>RMej2aBV8v</code></td><td><code>name</code>, <code>code</code></td><td>شماره تماس</td><td><code>student_welcome_sms_log</code></td></tr>
+            <tr><td>غیبت</td><td><code>rollcall_send_absence_sms</code></td><td><code>aX3d0ttYHc</code></td><td><code>name</code>, <code>date</code></td><td>شماره تماس</td><td><code>attendance_sms_log</code></td></tr>
+            <tr><td>تأخیر</td><td><code>rollcall_send_late_sms</code></td><td><code>BY86nXCqQY</code></td><td>نام و تاریخ</td><td>شماره تماس</td><td><code>attendance_late_sms_log</code></td></tr>
+            <tr><td>Study Plan</td><td><code>rollcall_send_study_plan_sms</code></td><td><code>zy6PWPVSVS</code></td><td><code>family</code></td><td>شماره تماس</td><td><code>study_plan_sms_log</code></td></tr>
+            <tr><td>OTP سایت</td><td>پلاگین وردپرس</td><td><code>8G3FF2Yo7M</code></td><td><code>code</code></td><td>شماره ورود سایت</td><td>کش وردپرس حدود ۱۰ دقیقه</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="callout warn" style="margin-top:16px">شماره پدر و مادر فقط بایگانی تماس آموزشگاه است. تا وقتی جدا گفته نشود، پیامک اولیا به همان شماره قبلی پرونده می‌رود.</p>
+    </section>
+
+    <section id="alocom">
+      <h2>الوکام و ترم Fall 1</h2>
+      <div class="grid g2">
+        <article class="card">
+          <h3>ورود دانش‌آموز</h3>
+          <ul>
+            <li>فقط از دکمه «ورود به کلاس آنلاین» پنل، با توکن</li>
+            <li>لینک عمومی رویداد بدون توکن رد می‌شود</li>
+            <li>حساب الوکام باز است اگر شهریه <strong>ترم در حال تدریس همان کلاس</strong> تسویه باشد؛ الان Fall 1</li>
+            <li>بدهکاری ترم آینده یا ترم مبدأ فوروارد، اتاق ترم جاری را نمی‌بندد</li>
+            <li>کلاس خصوصی استثنا است</li>
+            <li>رویداد با <code>start_by_admin = 0</code> ساخته می‌شود؛ دانش‌آموز می‌تواند قبل از مدرس وارد شود</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>سوپروایزر روی رویداد</h3>
+          <ul>
+            <li>یوزرهای الوکام: <code>m1377</code>، <code>matin</code>، <code>samira</code>، <code>saghar</code>، <code>maral</code></li>
+            <li>روی همه کلاس‌های آنلاین ترم در حال تدریس نقش مدیر رویداد دارند</li>
+            <li>الوکام این نقش را <code>teacher</code> می‌نامد؛ <code>admin</code> را قبول نمی‌کند</li>
+            <li>ساخت کلاس جدید همان پنج نفر را هم اضافه می‌کند</li>
+            <li>مدرس کلاس جدا با نقش <code>admin</code> رویداد ثبت می‌شود</li>
+          </ul>
+        </article>
+      </div>
+      <p class="callout" style="margin-top:16px">ورود پنل معلم با یوزرنیم عددی (مثل ۷۲۸۹) رقم فارسی را به انگلیسی تبدیل می‌کند تا <code>password_verify</code> درست کار کند. پس‌زمینه ماه کامل فقط داشبورد معلم ۵۰۱۱ است.</p>
+    </section>
+
+    <section id="bookstore">
+      <h2>جریان سفارش کتاب</h2>
+      <p class="lead">پاپ‌آپ حذف شده. دانش‌آموز روی صفحه جدا <code>dashboard/student/bookstore.php</code> سفارش می‌دهد. تا رسید واریز نیاید، سفارش در دفتر کتاب‌فروشی ثبت قطعی نمی‌شود.</p>
+      <div class="flow">
+        <div class="step"><b>۱</b><strong>صفحه Book Store</strong><span>سطح، کتاب‌ها، حضوری یا پست، تاریخچه سفارش‌های قبلی.</span></div>
+        <div class="step"><b>۲</b><strong>awaiting_receipt</strong><span>هوک <code>panel-order.php</code> سفارش را با وضعیت در انتظار رسید می‌سازد.</span></div>
+        <div class="step"><b>۳</b><strong>واریز کارت</strong><span>شماره کارت و هزینه پست روی همان صفحه دیده می‌شود.</span></div>
+        <div class="step"><b>۴</b><strong>آپلود رسید</strong><span><code>panel-receipt.php</code> وضعیت را <code>pending</code> می‌کند. فایل در <code>uploads/receipts</code>.</span></div>
+        <div class="step"><b>۵</b><strong>تأیید دفتر</strong><span>فروشگاه <code>approved</code> سپس خرید اینجا <code>ordered</code>. Acc همان دو وضعیت را می‌خواند.</span></div>
+      </div>
+      <div class="grid g2" style="margin-top:16px">
+        <article class="card">
+          <h3>وضعیت‌های فروشگاه</h3>
+          <ul>
+            <li><span class="status"><i class="dot wait"></i> awaiting_receipt</span> — پیش‌نویس؛ تا رسید نیاید در لیست دفتر نمی‌آید.</li>
+            <li><span class="status"><i class="dot shop"></i> pending</span> — رسید آمد؛ منتظر بررسی کتاب‌فروشی.</li>
+            <li><span class="status"><i class="dot ok"></i> approved</span> — تأیید دفتر؛ Acc Bookstore می‌بیند.</li>
+            <li><span class="status"><i class="dot acc"></i> ordered</span> — خرید اینجا انجام شد؛ باز هم در Acc می‌ماند تا لیست خالی نشود.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>قیمت فروش</h3>
+          <table>
+            <tr><th>نوع</th><th>قاعده</th></tr>
+            <tr><td>پمفلت و Phonics</td><td>۷۵۰٬۰۰۰</td></tr>
+            <tr><td>Jingle Bells</td><td>۲۳۰٬۰۰۰</td></tr>
+            <tr><td>استوری‌بوک</td><td>اینجا × ۳، سقف مضرب ۱۰ هزار</td></tr>
+            <tr><td>بقیه</td><td>اینجا × ۱٫۳۵، همان گرد کردن</td></tr>
+          </table>
+          <p style="margin:10px 0 0;color:var(--muted);font-size:.9rem">قیمت عمده اینجا بوک حدود ۲۰ دقیقه کش می‌شود. مبلغ کتاب روی فیش Acc از این مسیر نمی‌رود.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="acc-books">
+      <h2>صفحه Bookstore حسابداری <span class="tag tag-acc">Acc overlay</span></h2>
+      <p class="lead">سفارش‌هایی که دفتر فروشگاه تأیید کرده دیگر لازم نیست از Registration دیده شوند. تیک دستی کتاب روی همان صفحه ثبت‌نام سر جایش مانده است.</p>
+      <div class="grid g3">
+        <article class="card">
+          <h3>کجا دیده می‌شود</h3>
+          <p>آیتم «Bookstore» بعد از Registration در سایدبار Acc. Overlay جدا: <code>accounting/bookstore.js</code> روی <code>#gz-books</code>. نقش‌های manager و reception.</p>
+        </article>
+        <article class="card">
+          <h3>چه سفارشی می‌آید</h3>
+          <p><code>GET /api/bookstore_orders</code> پروکسی می‌کند به <code>books.ghazalify.com/api/acc-orders.php</code> با هدر <code>X-Ghazal-Books</code>. فیلتر پیش‌فرض <code>approved,ordered</code>. عکس رسید از <code>/api/bookstore_receipt/{id}</code>.</p>
+        </article>
+        <article class="card">
+          <h3>Registration دست‌نخورده</h3>
+          <p>فرم تیک کتاب / اسم / مبلغ در Acc همان است. تگ کهربایی «کتاب» برای کدهایی که سفارش تأییدشده فروشگاه دارند مخفی می‌شود تا دوبل دیده نشود. <code>bookstore_patch_acc_book</code> بعد از سفارش دانش‌آموز دیگر صدا زده نمی‌شود.</p>
+        </article>
+      </div>
+      <p class="callout ok" style="margin-top:16px">لیست Acc یک‌بار نشان داده می‌شود: کارت‌های <code>gz-books-card</code>. جدول و کارت تکراری با هم نیستند. Acc ترم را از تقویم پنل می‌گیرد، نه برچسب قدیمی Summer 2.</p>
+    </section>
+
+    <section id="pay">
+      <h2>کارت واریز و هزینه پست <span class="tag tag-live">لایو</span></h2>
+      <div class="grid g2">
+        <article class="card">
+          <h3>شماره کارت کتاب</h3>
+          <p class="card-num">6219 8619 2680 1571</p>
+          <p style="color:var(--muted);margin:8px 0 0">تنظیم فروشگاه <code>payment_card</code>. روی صفحه دانش‌آموز با فاصله چهاررقمی دیده می‌شود. پیش‌فرض کد هم همین است.</p>
+        </article>
+        <article class="card">
+          <h3>هزینه پست</h3>
+          <p class="money">۱۵۰٬۰۰۰ تومان</p>
+          <p style="color:var(--muted);margin:8px 0 0">تنظیم <code>postage_fee</code>. فقط اگر تحویل <code>post</code> باشد به جمع اضافه می‌شود. حضوری پست ندارد. آدرس حداقل ۸ کاراکتر و کد پستی ۱۰ رقم.</p>
+        </article>
+      </div>
+      <p class="callout" style="margin-top:16px">منبع حقیقت این دو مقدار جدول <code>settings</code> فروشگاه است، نه Acc. تغییر از <code>prices.php</code> یا همان API تنظیمات.</p>
+    </section>
+
+    <section id="services">
+      <h2>سرویس‌ها</h2>
+      <div class="grid g2">
+        <article class="card">
+          <h3>پنل آموزشی · panel.ghazalify.com</h3>
+          <ul>
+            <li>ورود، ترم، کلاس، حضور، هویت، Book Store، کرون</li>
+            <li>نقش: student / teacher / supervisor</li>
+            <li>رول‌کال قابل ادیت، Study Plan، My Profile پدر/مادر</li>
+            <li>هویت: <code>includes/identity-sync.php</code> → پنل + Acc + وردپرس + الوکام</li>
+            <li>شهریه سطح را با <code>accounting_pdo</code> روی همان ترم Acc می‌نویسد</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>حسابداری · acccounting.ghazalify.com</h3>
+          <ul>
+            <li>SPA ری‌اکت؛ API در <code>accounting/api.php</code></li>
+            <li>ثبت‌نام، رسید، سطح، Extra Course، حقوق اساتید / کادر</li>
+            <li>Overlay حقوق: <code>payroll.js</code> · Overlay کتاب: <code>bookstore.js</code></li>
+            <li>چاپ فاکتور صورتحساب شهریه است نه فاکتور کتاب جدا</li>
+            <li>ترم پیش‌فرض همان ترم در حال برگزاری پنل است</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>فروشگاه · books.ghazalify.com</h3>
+          <ul>
+            <li><code>POST /api/panel-order.php</code> ساخت سفارش دانش‌آموز</li>
+            <li><code>GET /api/acc-orders.php</code> و <code>acc-receipt.php</code> برای Acc</li>
+            <li><code>orders.php</code> کار دفتر؛ <code>prices.php</code> قیمت و تنظیم کارت/پست</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>بیرون از MySQL غزال</h3>
+          <ul>
+            <li>الوکام اتاق آنلاین · فراز الگوی SMS</li>
+            <li>اینجا بوک قیمت عمده · وردپرس کاربر سایت</li>
+            <li>Mattermost هشدار رول‌کال و Error Logs</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="data">
+      <h2>سه دیتابیس</h2>
+      <p class="lead">کلید اتصال شماره پرونده است: <code>users.username</code> پنل = <code>students.studentCode</code> Acc = <code>student_code</code> فروشگاه. کلید خارجی بین دیتابیس‌ها نیست.</p>
+      <div class="card" style="overflow:auto">
+        <table>
+          <thead>
+            <tr><th>داده</th><th>منبع حقیقت</th><th>نوشتن</th><th>خواندن</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>کاربر و کلاس</td><td>ghazali1_panel</td><td>هویت / کلاس‌بندی</td><td>داشبورد، حضور</td></tr>
+            <tr><td>شماره تماس / پدر / مادر</td><td>panel.users <code>phone</code>, <code>father_phone</code>, <code>mother_phone</code></td><td>My Profile دانش‌آموز</td><td>پیامک فقط از <code>phone</code></td></tr>
+            <tr><td>حضور جلسه</td><td>panel.attendance</td><td>معلم، سوپروایزر ادیت، کرون الوکام</td><td>رول‌کال، سوابق</td></tr>
+            <tr><td>Study Plan ارسال‌شده</td><td>panel.study_plan_sms_log</td><td>صفحه Study Plan</td><td>زمان آخرین ارسال</td></tr>
+            <tr><td>شهریه هر ترم</td><td>ghazali1_Acc.students</td><td>Acc API و همگام کلاس پنل</td><td>SPA، چاپ، join-online</td></tr>
+            <tr><td>رسید شهریه</td><td>Acc.receipts</td><td>POST /api/receipts</td><td>مودال رسید</td></tr>
+            <tr><td>سفارش کتاب</td><td>فروشگاه orders</td><td>panel-order سپس رسید</td><td>orders.php و Acc Bookstore</td></tr>
+            <tr><td>کتاب روی فیش Acc</td><td>students.hasBook دستی</td><td>فقط Registration</td><td>تگ دستی و چاپ فاکتور</td></tr>
+            <tr><td>کارت و پست</td><td>فروشگاه settings</td><td>prices.php</td><td>صفحه دانش‌آموز</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="callout warn" style="margin-top:16px">سفارش کتاب Acc را مستقیم عوض نمی‌کند. پرداخت کتاب با رسید واریز در فروشگاه است، جدا از شهریه.</p>
+    </section>
+
+    <section id="updates">
+      <h2>اپدیت‌های اخیر همین دوره</h2>
+      <div class="grid g2">
+        <article class="card">
+          <h3>پنل آموزشی</h3>
+          <ul>
+            <li>رول‌کال سوپروایزر: ادیت حاضر ↔ غایب در مودال جلسه</li>
+            <li>صفحه Study Plan و پیامک اولیا گرامی با فامیل؛ پترن <code>zy6PWPVSVS</code> تأییدشده</li>
+            <li>My Profile: کادر شماره پدر و شماره مادر؛ دانش‌آموز ذخیره می‌کند</li>
+            <li>پیامک‌ها به همان شماره تماس قبلی می‌روند، نه پدر/مادر</li>
+            <li>ورود معلم با یوزرنیم عددی (رقم فارسی نرمال می‌شود)</li>
+            <li>پس‌زمینه ماه کامل فقط داشبورد معلم ۵۰۱۱</li>
+            <li>خوش‌آمدگویی داشبورد انگلیسی؛ بات Error Logs جدا از رول‌کال</li>
+            <li>Quiz Marks Bonus ۱۰ با سقف ۱۰۰ روی کارنامه</li>
+            <li>کلاس‌بندی: تیک ساخت الوکام و Forward برای کلاس خارج تقویم</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>الوکام، Acc، کتاب</h3>
+          <ul>
+            <li>دسترسی اتاق دانش‌آموز بر اساس تسویه Fall 1 (ترم در حال تدریس)</li>
+            <li>پنج سوپروایزر روی همه کلاس آنلاین تدریس، نقش <code>teacher</code> رویداد</li>
+            <li>رویداد بدون اجبار شروع توسط ادمین؛ دانش‌آموز زودتر وارد می‌شود</li>
+            <li>Acc تقویم را از پنل می‌گیرد نه برچسب Summer 2</li>
+            <li>حقوق دو بخش: اساتید و کادر</li>
+            <li>صفحه جدا Book Store دانش‌آموز با awaiting_receipt و رسید</li>
+            <li>صفحه Bookstore در Acc برای approved و ordered</li>
+            <li>کارت <span dir="ltr">6219 8619 2680 1571</span> و پست ۱۵۰٬۰۰۰ تومان</li>
+            <li>تگ کهربایی فروشگاه روی Registration مخفی؛ تیک دستی ماند</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>فایل‌های همین گزارش</h2>
+      <p class="links">
+        <a href="index.html">فهرست</a>
+        <a href="ghazal-services.architecture.html">دیاگرام سرویس‌ها</a>
+        <a href="ghazal-data.dataflow.html">دیاگرام مسیر داده</a>
+        <a href="report-services.md">گزارش متنی سرویس‌ها</a>
+        <a href="report-database.md">گزارش دیتابیس</a>
+      </p>
+      <p class="note">عنوان‌های داخل دیاگرام Archify فارسی‌اند. دکمه‌های خود Viewer انگلیسی می‌مانند. توکن DirectAdmin، دیتابیس، فراز و هوک در این صفحه نیست.</p>
+    </section>
+  </main>
+</body>
+</html>

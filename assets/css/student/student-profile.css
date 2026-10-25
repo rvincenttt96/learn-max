@@ -1,0 +1,164 @@
+/* ============= صفحه پروفایل دانش‌آموز - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* کارت‌ها */
+.card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+.card-header.bg-danger {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border: none !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 1.25rem 1.5rem !important;
+    font-weight: 600;
+    color: white !important;
+}
+
+.card-body {
+    padding: 1.5rem !important;
+}
+
+/* فرم‌ها */
+.form-label {
+    font-weight: 500;
+    color: var(--text-light) !important;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--card-border) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--red-primary) !important;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2) !important;
+}
+
+.form-text {
+    color: var(--text-light) !important;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* دکمه‌ها */
+.btn-success {
+    background: rgba(76, 175, 80, 0.3) !important;
+    border: 1px solid rgba(76, 175, 80, 0.4) !important;
+    color: #a5d6a7 !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 140px;
+}
+
+.btn-success:hover {
+    background: rgba(76, 175, 80, 0.4) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3) !important;
+}
+
+/* آواتار */
+.profile-avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.profile-avatar {
+    width: 150px !important;
+    height: 150px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    border: 3px solid var(--card-border) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* هشدارها */
+.alert {
+    border-radius: 12px !important;
+    padding: 16px !important;
+    margin-bottom: 20px !important;
+    border: none !important;
+}
+
+.alert-success {
+    background: rgba(76, 175, 80, 0.2) !important;
+    color: #a5d6a7 !important;
+    border-left: 3px solid #4caf50 !important;
+}
+
+.alert-danger {
+    background: rgba(244, 67, 54, 0.2) !important;
+    color: #ffcccb !important;
+    border-left: 3px solid #f44336 !important;
+}
+
+/* ریسپانسیو */
+@media (max-width: 992px) {
+    .row > [class*="col-"] {
+        margin-bottom: 24px;
+    }
+    
+    .profile-avatar {
+        width: 120px !important;
+        height: 120px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-header {
+        padding: 1rem !important;
+        font-size: 1.1rem;
+    }
+    
+    .card-body {
+        padding: 1rem !important;
+    }
+    
+    .btn-success {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .profile-avatar {
+        width: 100px !important;
+        height: 100px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-control {
+        font-size: 1.1rem;
+    }
+    
+    .profile-avatar {
+        width: 80px !important;
+        height: 80px !important;
+    }
+}

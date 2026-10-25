@@ -1,0 +1,28 @@
+{
+  "panel": {
+    "label": "پنل آموزشی",
+    "host": "panel.ghazalify.com",
+    "da_root": "domains/panel.ghazalify.com/public_html"
+  },
+  "accounting": {
+    "label": "حسابداری",
+    "host": "acccounting.ghazalify.com",
+    "da_root": "domains/acccounting.ghazalify.com/public_html"
+  },
+  "books": {
+    "label": "فروشگاه کتاب",
+    "host": "books.ghazalify.com",
+    "da_root": "domains/books.ghazalify.com/public_html"
+  },
+  "blocked": [
+    "includes/directadmin-config.php",
+    "includes/rollcall-config.php",
+    "includes/liara-ai-config.php",
+    "includes/bookstore-config.php",
+    "panel-ops/config.json",
+    "wordpress/ghazal-seo-secret.php",
+    "accounting/bookstore-config.php",
+    "accounting/identity-config.php",
+    "accounting/config.php"
+  ]
+}

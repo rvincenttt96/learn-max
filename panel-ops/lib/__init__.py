@@ -1,0 +1,1 @@
+"""Ghazal panel agent internals."""

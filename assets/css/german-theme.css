@@ -1,0 +1,571 @@
+/* German program — light chrome.
+   Loaded last so it wins over liquid-glass.
+   Tokens and motion from emilkowalski/skills (emil-design-eng, animate, apple-design). */
+
+html.german-html {
+    color-scheme: light !important;
+    background: #f5f5f7 !important;
+    --lg-bg: #f5f5f7;
+    --lg-bg-soft: #f5f5f7;
+    --lg-sidebar: rgba(255, 255, 255, 0.78);
+    --lg-glass: #ffffff;
+    --lg-glass-strong: #ffffff;
+    --lg-input: #ffffff;
+    --lg-border: rgba(60, 60, 67, 0.12);
+    --lg-border-hot: rgba(225, 29, 72, 0.28);
+    --lg-text: #1d1d1f;
+    --lg-muted: #6e6e73;
+    --lg-red: #e11d48;
+    --lg-rose: #be123c;
+    --lg-glow: 0 8px 22px rgba(225, 29, 72, 0.16);
+    --lg-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+    --dark-bg: #f5f5f7;
+    --darker-bg: #ffffff;
+    --card-bg: #ffffff;
+    --card-border: rgba(60, 60, 67, 0.12);
+    --text: #1d1d1f;
+    --text-light: #e11d48;
+    --primary: #e11d48;
+    --primary-light: #fb7185;
+}
+
+html.german-html body.lg-app,
+html.german-html body.german-app,
+html.german-html body.lg-app.german-app,
+html.german-html body {
+    background: #f5f5f7 !important;
+    color: #1d1d1f !important;
+}
+
+.german-app {
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    --g-bg: #f5f5f7;
+    --g-text: #1d1d1f;
+    --g-muted: #6e6e73;
+    --g-red: #e11d48;
+    --g-card: #ffffff;
+    --g-line: rgba(60, 60, 67, 0.12);
+    --g-soft: #f5f5f7;
+    --g-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+    --lg-bg: #f5f5f7;
+    --lg-glass: #ffffff;
+    --lg-glass-strong: #ffffff;
+    --lg-input: #ffffff;
+    --lg-text: #1d1d1f;
+    --lg-muted: #6e6e73;
+    --lg-border: rgba(60, 60, 67, 0.12);
+    --lg-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+}
+
+/* Full-viewport looping orbs fail Emil's "should this animate" gate
+   (seen constantly) and Apple's reduced-motion guidance. */
+.german-app .lg-orbs,
+.german-app .lg-grid-floor {
+    display: none !important;
+}
+
+.german-app .lg-enter,
+.german-app .lg-rise {
+    animation: none !important;
+    transform: none !important;
+}
+
+.german-app .dashboard-layout {
+    background: #f5f5f7 !important;
+}
+
+.german-app .main-content-wrapper,
+.german-app .main-content-wrapper.lg-stage {
+    background: #f5f5f7 !important;
+    background-image: none !important;
+}
+
+.german-app .main-content,
+.german-app .german-main,
+.german-app .teacher-main-content,
+html.german-html .german-app .main-content-wrapper.lg-stage {
+    color: #1d1d1f !important;
+}
+
+.german-app .main-content,
+.german-app .german-main,
+.german-app .teacher-main-content {
+    background: transparent !important;
+}
+
+.german-app .g-header h1,
+.german-app .g-header h1 span,
+.german-app .g-panel-head h2,
+.german-app .g-sheet-head h2,
+.german-app .class-info h2,
+.german-app .g-empty h3,
+.german-app .g-list,
+.german-app .g-list-copy strong,
+.german-app .g-pay-head strong,
+.german-app h1,
+.german-app h2,
+.german-app h3 {
+    color: #1d1d1f !important;
+}
+
+.german-app .g-header h1 span {
+    color: #e11d48 !important;
+}
+
+.german-app .g-header p,
+.german-app .g-hint,
+.german-app .g-muted,
+.german-app .g-clock-date,
+.german-app .student-file,
+.german-app .g-pay-meta,
+.german-app .section-title,
+.german-app .g-field,
+.german-app .form-label {
+    color: #6e6e73 !important;
+}
+
+.german-app .eas-card,
+.german-app .g-card,
+.german-app .g-panel,
+.german-app .g-empty,
+.german-app .card {
+    background: #ffffff !important;
+    color: #1d1d1f !important;
+    border: 1px solid rgba(60, 60, 67, 0.12) !important;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.07) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.german-app .eas-card .card-header,
+.german-app .g-card .card-header,
+.german-app .card-header {
+    background: transparent !important;
+    color: #1d1d1f !important;
+    border-bottom: 1px solid rgba(60, 60, 67, 0.12) !important;
+}
+
+.german-app .sessions-container,
+.german-app .g-pay-row,
+.german-app .g-clock,
+.german-app .g-cred,
+.german-app .g-picker,
+.german-app .g-fee-strip span {
+    background: #f5f5f7 !important;
+    border-color: rgba(60, 60, 67, 0.12) !important;
+    color: #1d1d1f !important;
+    backdrop-filter: none !important;
+}
+
+.german-app .g-fee-strip {
+    color: #3a3a3c !important;
+}
+
+.german-app .g-input,
+.german-app .g-field .g-input,
+.german-app .form-control,
+.german-app .form-select,
+.german-app input[type="search"],
+.german-app input[type="text"],
+.german-app input[type="password"],
+.german-app input[type="email"],
+.german-app input[type="number"],
+.german-app input[type="tel"],
+.german-app input[type="date"],
+.german-app input[type="time"],
+.german-app select,
+.german-app select.g-input,
+.german-app textarea,
+.german-app textarea.form-control {
+    background: #ffffff !important;
+    color: #1d1d1f !important;
+    border: 1px solid rgba(60, 60, 67, 0.16) !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    caret-color: #1d1d1f;
+}
+
+.german-app .g-input:focus,
+.german-app .form-control:focus,
+.german-app .form-select:focus,
+.german-app input:focus,
+.german-app select:focus,
+.german-app textarea:focus {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.12) !important;
+    outline: none !important;
+    color: #1d1d1f !important;
+    background: #ffffff !important;
+}
+
+.german-app input::placeholder,
+.german-app textarea::placeholder,
+.german-app .form-control::placeholder {
+    color: #8e8e93 !important;
+}
+
+.german-app select option,
+.german-app .form-select option {
+    background: #ffffff !important;
+    color: #1d1d1f !important;
+}
+
+.german-app input[type="checkbox"],
+.german-app input[type="radio"] {
+    background: #ffffff !important;
+    accent-color: #e11d48;
+    width: 18px !important;
+    height: 18px !important;
+    min-height: 18px !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+}
+
+.german-app .form-check-input {
+    background-color: #ffffff !important;
+    border-color: rgba(60, 60, 67, 0.28) !important;
+}
+
+.german-app .date-input,
+.german-app input.date-input,
+.german-app input.regular-date {
+    background: transparent !important;
+    color: #6e6e73 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(60, 60, 67, 0.16) !important;
+    border-radius: 0 !important;
+    min-height: 0 !important;
+    width: 64px !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.german-app .session-box {
+    background: #ffffff !important;
+    border-color: rgba(60, 60, 67, 0.16) !important;
+    color: #6e6e73 !important;
+}
+
+.german-app .session-box.status-tick {
+    background: rgba(46, 204, 113, 0.16) !important;
+    color: #159750 !important;
+    border-color: #2ecc71 !important;
+}
+
+.german-app .session-box.status-cross {
+    background: rgba(225, 29, 72, 0.12) !important;
+    color: #e11d48 !important;
+    border-color: #e11d48 !important;
+}
+
+.german-app .student-badge {
+    background: #f5f5f7 !important;
+    color: #1d1d1f !important;
+    border: 1px solid rgba(60, 60, 67, 0.12) !important;
+}
+
+.german-app .g-pick {
+    color: #1d1d1f !important;
+}
+
+.german-app .g-sheet,
+.german-app .g-sheet-sm {
+    background: #ffffff !important;
+    color: #1d1d1f !important;
+    border: 1px solid rgba(60, 60, 67, 0.12) !important;
+    box-shadow: 0 24px 80px rgba(15, 23, 42, 0.18) !important;
+}
+
+.german-app .g-sheet-actions {
+    background: #ffffff !important;
+}
+
+.german-app .g-icon-btn {
+    background: #f5f5f7 !important;
+    color: #1d1d1f !important;
+}
+
+.german-app .g-btn-ghost {
+    background: #ffffff !important;
+    color: #1d1d1f !important;
+    border: 1px solid rgba(60, 60, 67, 0.16) !important;
+}
+
+.german-app .g-btn-primary {
+    background: #e11d48 !important;
+    color: #fff !important;
+}
+
+.german-app .g-btn-save {
+    background: #2ecc71 !important;
+    color: #0b1b12 !important;
+}
+
+.german-app .g-file {
+    background: #ffffff !important;
+    color: #6e6e73 !important;
+    border: 1px dashed rgba(60, 60, 67, 0.2) !important;
+}
+
+.german-app input[type="file"],
+.german-app input[type="file"].form-control {
+    background: transparent !important;
+    color: #1d1d1f !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.german-app .teacher,
+.german-app .class-info .teacher {
+    color: #e11d48 !important;
+}
+
+.german-app .g-table,
+.german-app .table {
+    --bs-table-bg: transparent !important;
+    --bs-table-color: #1d1d1f !important;
+    --bs-table-border-color: rgba(60, 60, 67, 0.12) !important;
+    --bs-table-hover-bg: #fff1f2 !important;
+    --bs-table-hover-color: #1d1d1f !important;
+    --bs-table-striped-bg: #f5f5f7 !important;
+    color: #1d1d1f !important;
+}
+
+.german-app .g-table th,
+.german-app .g-table td,
+.german-app .table th,
+.german-app .table td,
+.german-app .table > :not(caption) > * > * {
+    background-color: transparent !important;
+    color: #1d1d1f !important;
+    border-bottom-color: rgba(60, 60, 67, 0.12) !important;
+}
+
+.german-app .g-fee-preview {
+    background: #ecfdf5 !important;
+    border-color: rgba(16, 185, 129, 0.28) !important;
+    color: #047857 !important;
+}
+
+html.german-html jdp-container,
+html.german-html .jdp-container,
+html.german-html .jalali-datepicker {
+    background: #ffffff !important;
+    color: #1d1d1f !important;
+    border: 1px solid rgba(60, 60, 67, 0.16) !important;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16) !important;
+}
+
+.german-app .sidebar,
+.german-app .mobile-sidebar {
+    background: rgba(255, 255, 255, 0.78) !important;
+    backdrop-filter: blur(28px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.7) !important;
+    border-right: 1px solid rgba(60, 60, 67, 0.08) !important;
+    box-shadow: -12px 0 40px rgba(15, 23, 42, 0.06) !important;
+}
+
+.german-app .sidebar-header,
+.german-app .mobile-sidebar .sidebar-header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(60, 60, 67, 0.1) !important;
+}
+
+.german-app .sidebar-header .text-white,
+.german-app .mobile-sidebar .sidebar-header .text-white,
+.german-app .sidebar-header .fw-bold,
+.german-app .mobile-sidebar .sidebar-header .fw-bold {
+    color: #1d1d1f !important;
+}
+
+.german-app .sidebar-header small,
+.german-app .mobile-sidebar .sidebar-header small {
+    color: #e11d48 !important;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+}
+
+.german-app .sidebar-header img,
+.german-app .mobile-sidebar .sidebar-header img {
+    border: 2px solid rgba(225, 29, 72, 0.28);
+    box-shadow: 0 8px 24px rgba(225, 29, 72, 0.16);
+    animation: none;
+}
+
+.german-app .sidebar-nav hr,
+.german-app .mobile-sidebar hr {
+    border-color: rgba(60, 60, 67, 0.12) !important;
+}
+
+.german-app .sidebar-nav .nav-item,
+.german-app .mobile-sidebar .nav-item,
+.german-app .sidebar .nav-item,
+.german-app .mobile-sidebar a.nav-item {
+    color: #3a3a3c !important;
+    background: rgba(255, 255, 255, 0.72) !important;
+    border: 1px solid rgba(60, 60, 67, 0.08) !important;
+    box-shadow: none !important;
+    font-weight: 600;
+}
+
+.german-app .sidebar-nav .nav-item::before,
+.german-app .mobile-sidebar .nav-item::before {
+    background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.65) 50%, transparent 70%);
+}
+
+.german-app .sidebar-nav .nav-item.active,
+.german-app .mobile-sidebar .nav-item.active,
+.german-app .sidebar .nav-item.active,
+.german-app .mobile-sidebar a.nav-item.active {
+    color: #fff !important;
+    background: linear-gradient(90deg, #e11d48, #be123c) !important;
+    border-color: transparent !important;
+    box-shadow: 0 8px 22px rgba(225, 29, 72, 0.28) !important;
+    font-weight: 700;
+    transform: none;
+}
+
+.german-app .sidebar-nav .nav-item .nav-icon,
+.german-app .mobile-sidebar .nav-item .nav-icon {
+    background: #fff;
+    box-shadow: inset 0 0 0 1px rgba(60, 60, 67, 0.08);
+}
+
+.german-app .sidebar-nav .nav-item:nth-of-type(1) .nav-icon,
+.german-app .mobile-sidebar .nav-item:nth-of-type(1) .nav-icon { background: #ffe4e6; color: #e11d48; }
+.german-app .sidebar-nav .nav-item:nth-of-type(2) .nav-icon,
+.german-app .mobile-sidebar .nav-item:nth-of-type(2) .nav-icon { background: #fce7f3; color: #db2777; }
+.german-app .sidebar-nav .nav-item:nth-of-type(3) .nav-icon,
+.german-app .mobile-sidebar .nav-item:nth-of-type(3) .nav-icon { background: #fef3c7; color: #d97706; }
+.german-app .sidebar-nav .nav-item:nth-of-type(4) .nav-icon,
+.german-app .mobile-sidebar .nav-item:nth-of-type(4) .nav-icon { background: #cffafe; color: #0891b2; }
+
+.german-app .sidebar-nav .nav-item.active .nav-icon,
+.german-app .mobile-sidebar .nav-item.active .nav-icon {
+    background: rgba(255, 255, 255, 0.22) !important;
+    color: #fff !important;
+    box-shadow: none;
+    transform: none;
+}
+
+.german-app .sidebar-nav .nav-item[href*="logout"],
+.german-app .mobile-sidebar .nav-item[href*="logout"] {
+    color: #be123c !important;
+    background: #fff1f2 !important;
+    border-color: rgba(225, 29, 72, 0.12) !important;
+}
+
+.german-app .sidebar-nav .nav-item[href*="logout"] .nav-icon,
+.german-app .mobile-sidebar .nav-item[href*="logout"] .nav-icon {
+    background: #ffe4e6 !important;
+    color: #e11d48 !important;
+}
+
+.german-app .mobile-navbar {
+    background: rgba(255, 255, 255, 0.78) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    border-bottom: 1px solid rgba(60, 60, 67, 0.1) !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04) !important;
+}
+
+.german-app .title-nav,
+.german-app .mobile-navbar .col.text-center {
+    color: #1d1d1f !important;
+}
+
+.german-app .btn-menu {
+    background: #fff !important;
+    border: 1px solid rgba(60, 60, 67, 0.12) !important;
+    color: #1d1d1f !important;
+    border-radius: 12px !important;
+}
+
+.german-app .sidebar-backdrop {
+    background: rgba(15, 23, 42, 0.28) !important;
+}
+
+.german-app .eas-card:hover,
+.german-app .g-card:hover {
+    transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .german-app .sidebar-nav .nav-item:hover,
+    .german-app .mobile-sidebar .nav-item:hover {
+        color: #1d1d1f !important;
+        background: #fff1f2 !important;
+        border-color: rgba(225, 29, 72, 0.14) !important;
+        transform: translateX(-3px);
+    }
+    .german-app .sidebar-nav .nav-item:hover .nav-icon,
+    .german-app .mobile-sidebar .nav-item:hover .nav-icon {
+        transform: scale(1.04);
+    }
+    .german-app .sidebar-nav .nav-item.active:hover,
+    .german-app .mobile-sidebar .nav-item.active:hover {
+        color: #fff !important;
+        background: linear-gradient(90deg, #e11d48, #be123c) !important;
+        transform: none;
+    }
+    .german-app .btn-menu:hover {
+        background: #fff1f2 !important;
+    }
+    .german-app .eas-card:hover,
+    .german-app .g-card:hover {
+        transform: none;
+        border-color: rgba(225, 29, 72, 0.22) !important;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08) !important;
+    }
+    .german-app .g-btn-ghost:hover,
+    .german-app .g-icon-btn:hover {
+        background: #fff1f2 !important;
+    }
+    .german-app .session-box:hover {
+        background: #fff1f2 !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .german-app .sidebar-nav .nav-item,
+    .german-app .mobile-sidebar .nav-item,
+    .german-app .g-sheet,
+    .german-app .g-sheet-backdrop,
+    .german-app .g-btn,
+    .german-app .mobile-sidebar,
+    .german-app .eas-card,
+    .german-app .g-card {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .german-app .sidebar,
+    .german-app .mobile-sidebar,
+    .german-app .mobile-navbar {
+        background: #ffffff !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+}
+
+@media (prefers-contrast: more) {
+    .german-app .sidebar,
+    .german-app .mobile-sidebar,
+    .german-app .g-card,
+    .german-app .eas-card,
+    .german-app .g-panel,
+    .german-app .g-sheet,
+    .german-app input,
+    .german-app select,
+    .german-app textarea {
+        background: #fff !important;
+        border: 1px solid #1d1d1f !important;
+        color: #1d1d1f !important;
+    }
+}

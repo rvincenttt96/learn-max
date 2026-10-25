@@ -1,16 +1,18 @@
 # Learn Max — پنل آموزشی
 
-ریپوی عمومی آموزشگاه زبان **Learn Max**.
+کد کامل پنل آموزشی آموزشگاه زبان **Learn Max** (برنچ `education`).
 
-این برنچ (`education`) کد پنل آموزشی است: ورود مدرس و زبان‌آموز، کلاس‌بندی، حضور، نمره و گزارش.
+حسابداری روی برنچ [`accounting`](https://github.com/rvincenttt96/learn-max/tree/accounting) است.
 
-برنچ حسابداری: [`accounting`](https://github.com/rvincenttt96/learn-max/tree/accounting).
+## اجرا
 
-## برنچ‌ها
+1. PHP 8.1+ و MySQL.
+2. فایل‌های نمونه را کپی کنید و رمز را فقط روی سرور بگذارید:
+   - `includes/directadmin-config.example.php` → `includes/directadmin-config.php`
+   - `includes/rollcall-config.example.php` → `includes/rollcall-config.php`
+   - `includes/bookstore-config.example.php` → `includes/bookstore-config.php`
+   - `includes/liara-ai-config.example.php` → `includes/liara-ai-config.php`
+   - روی سرور معمولاً `includes/db.php` و `includes/auth.php` هم لازم است.
+3. ریشهٔ وب را همین پوشه بگذارید (`index.php` صفحهٔ ورود است).
 
-| برنچ | نقش |
-| --- | --- |
-| `education` | پنل آموزشی |
-| `accounting` | پنل حسابداری |
-
-هنوز کد پنل روی این برنچ نیامده؛ اسکلت ریپو است.
+رمز، توکن، و فایل‌های `config.php` / `config.json` داخل این ریپوی عمومی نیستند.

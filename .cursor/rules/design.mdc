@@ -1,0 +1,61 @@
+---
+description: Mandatory Ghazal UI design — always follow emilkowalski/skills
+alwaysApply: true
+---
+
+# Design is not optional
+
+The design spec for every Ghazal educational-panel and accounting UI change is **Emil Kowalski's skills**.
+
+- Upstream: https://github.com/emilkowalski/skills
+- Canonical copy in this repo: `panel-ops/skills/emilkowalski/`
+- Index: `panel-ops/skills/emilkowalski/README-GHAZAL.md`
+- Project skill: `.cursor/skills/ghazal-ui/SKILL.md`
+
+Do not invent a second design system. Do not copy random dashboard CSS. Do not skip this because the task “is just a small CSS tweak”.
+
+## First action on any UI work
+
+Before writing or changing CSS, HTML, layout, a modal, sheet, button, sidebar, form, color, or animation, **Read** (do not skim from memory):
+
+1. `panel-ops/skills/emilkowalski/skills/emil-design-eng/SKILL.md`
+2. `panel-ops/skills/emilkowalski/skills/animate/SKILL.md`
+3. Plus, when it applies:
+   - sheets / press / spacing → `skills/apple-design/SKILL.md`
+   - phone / tap / 100vh / 16px inputs → `skills/mobile-native/SKILL.md`
+   - motion implementation → `skills/animate/RECIPES.md`
+   - long names / empty states → `skills/break-ui/SKILL.md`
+
+Those skills include an “I'm ready…” greeting. **Ignore that greeting** when this rule is already in effect. Follow the craft rules and write the UI.
+
+## Never ship
+
+| Never | Instead |
+| --- | --- |
+| `transition: all` | Named properties only, e.g. `transform` + `opacity` |
+| `transform: scale(0)` enter | `scale(0.95)` + `opacity: 0` |
+| `ease-in` on UI | `ease-out` / `cubic-bezier(0.23, 1, 0.32, 1)` |
+| Built-in weak `ease-out` on a deliberate motion | `--ease-out: cubic-bezier(0.23, 1, 0.32, 1)` |
+| Drawer/sheet curve guessed | `--ease-drawer: cubic-bezier(0.32, 0.72, 0, 1)` |
+| UI duration > 300ms with no reason | 150–250ms (press 100–160ms) |
+| Animation on something seen constantly (orbs, page chrome, 100+/day) | No animation |
+| Ungated `:hover` motion | `@media (hover: hover) and (pointer: fine)` |
+| Missing `:active` on pressable | `transform: scale(0.97)` |
+| Input font-size < 16px | `font-size: 16px` (stops iOS zoom) |
+| `100vh` for app chrome | `100dvh` + `viewport-fit=cover` + safe-area env() |
+| Tap gray flash | `-webkit-tap-highlight-color: transparent` |
+| Laggy tap | `touch-action: manipulation` + press feedback on pointer-down |
+| Animating width/height/margin/top | `transform` / `opacity` |
+| Modal `transform-origin` at a trigger | Modals stay centered; popovers use the trigger |
+
+`--ease-in-out: cubic-bezier(0.77, 0, 0.175, 1)` only for on-screen movement, not enter/exit.
+
+## Review format
+
+When checking UI you already wrote, use one markdown table with columns **Before | After | Why**. Not a bullet list.
+
+## Product constraints (still apply)
+
+- RTL Persian PHP panel. Map recipes to CSS; do not install a motion library for a fade.
+- Do not restyle the English liquid-glass globally unless asked. Scope German to `.german-app` / `html.german-html`.
+- Verify UI in the browser (or live CDP) before calling it done.

@@ -1,0 +1,459 @@
+/* ============= صفحه حضور و غیاب سوپروایزر - Glassmorphism Red Theme ============= */
+
+/* متغیرهای رنگ */
+:root {
+    --red-primary: #d32f2f;
+    --red-dark: #b71c1c;
+    --red-light: #ffcdd2;
+    --card-bg: rgba(12, 10, 31, 0.85);
+    --card-border: rgba(211, 47, 47, 0.3);
+    --text-primary: #ffd1d1;
+    --text-light: rgba(255, 255, 255, 0.7);
+}
+
+/* تب‌ها */
+.nav-tabs {
+    background: rgba(25, 20, 50, 0.6) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    padding: 8px !important;
+    margin-bottom: 24px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    padding: 10px 20px !important;
+    margin: 0 4px !important;
+    border: none !important;
+    border-radius: 8px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    color: var(--text-primary) !important;
+}
+
+.nav-link.active {
+    background: var(--red-primary) !important;
+    color: white !important;
+}
+
+/* کارت اصلی */
+.card {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    box-shadow: 
+        0 8px 25px rgba(211, 47, 47, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.08) !important;
+    margin-bottom: 24px;
+    color: var(--text-primary) !important;
+}
+
+/* کانتینر جدول */
+.attendance-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+    margin: -20px;
+}
+
+/* جدول حضور و غیاب */
+.attendance-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    min-width: 900px;
+    background: rgba(25, 20, 50, 0.6) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 12px !important;
+}
+
+.attendance-table thead th {
+    background: rgba(211, 47, 47, 0.3) !important;
+    color: var(--text-primary) !important;
+    padding: 16px 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.attendance-table tbody tr {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+    border: 1px solid var(--card-border) !important;
+}
+
+.attendance-table tbody tr:hover {
+    background: rgba(211, 47, 47, 0.15) !important;
+    transform: translateY(-2px);
+}
+
+/* ستون‌های اطلاعات کلاس */
+.class-info-cell {
+    padding: 16px 20px !important;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-right: 1px solid var(--card-border) !important;
+    min-width: 200px;
+    color: var(--text-primary) !important;
+}
+
+.class-info-cell .class-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.class-info-cell .class-title .class-live-dot.is-on {
+    display: inline-block;
+    flex: 0 0 8px;
+}
+
+.class-info-cell .teacher-name {
+    font-size: 0.9rem;
+    color: var(--text-light) !important;
+}
+
+/* سلول‌های جلسه */
+.session-cell {
+    padding: 16px 12px !important;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    color: var(--text-primary) !important;
+}
+
+.session-cell:hover {
+    background: rgba(211, 47, 47, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+.session-date {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.session-stats {
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.3) !important;
+    padding: 4px 8px;
+    border-radius: 8px;
+    display: inline-block;
+    color: var(--text-light) !important;
+}
+
+/* رنگ‌های وضعیت */
+.text-present { color: #a5d6a7 !important; }
+.text-absent { color: #ffcccb !important; }
+.text-partial { color: #ffe082 !important; }
+.text-empty { color: rgba(255, 255, 255, 0.3) !important; }
+
+/* سلول‌های خالی */
+.empty-session {
+    background: rgba(0, 0, 0, 0.1) !important;
+    cursor: default !important;
+}
+
+.empty-session:hover {
+    transform: none !important;
+    background: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* کارت خالی */
+.card-body.text-center.py-5 {
+    padding: 60px 20px !important;
+}
+
+.card-body.text-center.py-5 .emoji {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--red-primary);
+}
+
+.card-body.text-center.py-5 h4 {
+    color: var(--text-primary) !important;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.card-body.text-center.py-5 p {
+    color: var(--text-light) !important;
+    line-height: 1.6;
+}
+
+/* اسکرول‌بار */
+.attendance-table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.attendance-table-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.attendance-table-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, var(--red-dark), var(--red-primary));
+    border-radius: 4px;
+}
+
+.attendance-table-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, var(--red-primary), #ff5252);
+}
+
+/* مودال */
+.modal-content {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 2px solid var(--card-border) !important;
+    border-radius: 16px !important;
+    color: var(--text-primary) !important;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red-primary)) !important;
+    border-radius: 16px 16px 0 0 !important;
+    border: none !important;
+    color: white !important;
+}
+
+.modal-body {
+    background: rgba(25, 20, 50, 0.6) !important;
+    padding: 24px !important;
+}
+
+/* هدر اطلاعات در مودال */
+.attendance-header {
+    background: rgba(211, 47, 47, 0.15) !important;
+    border-left: 3px solid var(--red-primary) !important;
+    border-radius: 12px !important;
+    padding: 16px 20px !important;
+    margin-bottom: 24px !important;
+}
+
+.attendance-header h6 {
+    color: var(--red-primary) !important;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.attendance-header p {
+    color: var(--text-light) !important;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* جدول در مودال */
+.modal .table {
+    background: rgba(25, 20, 50, 0.6) !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.modal .table thead th {
+    background: rgba(211, 47, 47, 0.3) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600;
+    padding: 12px 16px;
+    border: none !important;
+}
+
+.modal .table tbody tr {
+    border-bottom: 1px solid var(--card-border) !important;
+}
+
+.modal .table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.modal .table td {
+    color: var(--text-light) !important;
+    padding: 12px 16px;
+    border: none !important;
+}
+
+/* دکمه‌ها در مودال */
+.modal .btn-warning,
+.modal .btn-outline-warning,
+.modal .btn-success {
+    min-width: 80px;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.modal .btn-warning {
+    background: rgba(255, 152, 0, 0.8) !important;
+    border: none !important;
+    color: #000 !important;
+}
+
+.modal .btn-warning:hover {
+    background: rgba(255, 152, 0, 1) !important;
+}
+
+.modal .btn-outline-warning {
+    background: transparent !important;
+    border: 1px solid #ff9800 !important;
+    color: #ff9800 !important;
+}
+
+.modal .btn-outline-warning:hover {
+    background: rgba(255, 152, 0, 0.2) !important;
+    color: white !important;
+}
+
+.modal .btn-success {
+    background: rgba(76, 175, 80, 0.8) !important;
+    border: none !important;
+    color: white !important;
+}
+
+.modal .btn-success:hover {
+    background: rgba(76, 175, 80, 1) !important;
+}
+
+/* هشدارها در مودال */
+.modal .alert {
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+    margin-bottom: 12px !important;
+    font-weight: 500 !important;
+    border: none !important;
+    font-size: 0.9rem;
+}
+
+.modal .alert-success {
+    background: rgba(76, 175, 80, 0.2) !important;
+    color: #a5d6a7 !important;
+}
+
+.modal .alert-danger {
+    background: rgba(244, 67, 54, 0.2) !important;
+    color: #ffcccb !important;
+}
+
+/* ریسپانسیو */
+@media (max-width: 1200px) {
+    .attendance-table {
+        min-width: 800px;
+    }
+    
+    .session-cell {
+        min-width: 70px;
+        padding: 14px 10px !important;
+    }
+    
+    .class-info-cell {
+        min-width: 180px;
+        padding: 14px 16px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .attendance-table {
+        min-width: 700px;
+    }
+    
+    .session-cell {
+        min-width: 65px;
+        padding: 12px 8px !important;
+    }
+    
+    .nav-link {
+        padding: 8px 12px !important;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10px !important;
+    }
+    
+    .modal-body {
+        padding: 16px !important;
+    }
+    
+    .modal .table td,
+    .modal .table th {
+        padding: 8px 12px !important;
+        font-size: 0.85rem;
+    }
+    
+    .attendance-header {
+        padding: 12px 16px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .attendance-table {
+        min-width: 500px;
+    }
+    
+    .class-info-cell {
+        min-width: 150px;
+        padding: 12px 14px !important;
+    }
+    
+    .session-cell {
+        min-width: 60px;
+        padding: 10px 6px !important;
+    }
+}
+
+.learner-name-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.late-sms-btn {
+    background: rgba(255, 193, 7, 0.16) !important;
+    border: 1px solid rgba(255, 193, 7, 0.45) !important;
+    color: #ffe082 !important;
+    white-space: nowrap;
+}
+.late-sms-btn:hover {
+    background: rgba(255, 193, 7, 0.28) !important;
+    color: #fff8e1 !important;
+}
+.rc-status-cell,
+.rc-follow-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+}
+.modal .btn-outline-danger {
+    background: transparent !important;
+    border: 1px solid #ef5350 !important;
+    color: #ef9a9a !important;
+}
+.modal .btn-outline-danger:hover {
+    background: rgba(239, 83, 80, 0.2) !important;
+    color: #fff !important;
+}

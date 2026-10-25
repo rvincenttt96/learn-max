@@ -1,0 +1,104 @@
+/* Student "My Classes" — AloCom login next to the class join button */
+
+.class-card {
+    overflow: hidden;
+}
+
+.class-info p {
+    margin-bottom: 0.4rem;
+}
+
+.alocom-login-box {
+    margin-top: 4px;
+    padding: 16px 14px 14px;
+    border-radius: 20px;
+    background:
+        linear-gradient(180deg, rgba(253, 224, 71, 0.16), rgba(8, 8, 12, 0.55)),
+        rgba(14, 14, 22, 0.88);
+    border: 2px solid rgba(253, 224, 71, 0.72);
+    box-shadow: 0 0 32px rgba(250, 204, 21, 0.22);
+}
+
+.alocom-login-kicker {
+    display: block;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #fde68a;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+}
+
+.alocom-login-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.alocom-login-item {
+    background: rgba(0, 0, 0, 0.42);
+    border: 1px solid rgba(253, 224, 71, 0.38);
+    border-radius: 16px;
+    padding: 10px 12px 12px;
+}
+
+.alocom-login-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #facc15;
+    margin-bottom: 4px;
+}
+
+.alocom-login-value {
+    display: block;
+    width: 100%;
+    direction: ltr;
+    text-align: center;
+    font-family: 'YekanBakhFaNum', ui-monospace, "Courier New", monospace;
+    font-size: clamp(2rem, 8vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 0.14em;
+    color: #fffbeb;
+    user-select: all;
+    word-break: break-all;
+    text-shadow: 0 0 18px rgba(250, 204, 21, 0.35);
+}
+
+.alocom-login-copy {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 12px;
+    background: rgba(250, 204, 21, 0.16);
+    color: #fde68a;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 7px 10px;
+    cursor: pointer;
+}
+
+.alocom-login-copy.is-copied {
+    background: rgba(16, 185, 129, 0.28);
+    color: #bbf7d0;
+}
+
+.alocom-join-btn {
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    padding: 12px 14px !important;
+    border-radius: 14px !important;
+}
+
+@media (min-width: 640px) {
+    .alocom-login-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .alocom-login-value {
+        font-size: 2.6rem;
+    }
+}

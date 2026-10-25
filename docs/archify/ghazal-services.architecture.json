@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "سرویس‌ها و فلوهای غزال",
+    "output": "ghazal-services.architecture.html",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "identity-path",
+        "label": "ثبت‌نام و کلاس",
+        "focus": ["people", "panel", "panelDb"],
+        "note": "شماره پرونده همان username پنل است."
+      },
+      {
+        "id": "bookstore-path",
+        "label": "سفارش کتاب",
+        "focus": ["people", "panel", "books", "booksDb"],
+        "note": "هوک panel-order سفارش awaiting_receipt می‌سازد؛ بعد از رسید pending می‌شود و Acc سفارش approved/ordered را می‌خواند."
+      },
+      {
+        "id": "tuition-path",
+        "label": "شهریه Acc",
+        "focus": ["acc", "accDb"],
+        "note": "پذیرش SPA ردیف ترم و رسید را در ghazali1_Acc می‌نویسد."
+      }
+    ]
+  },
+  "layout": {
+    "mode": "grid",
+    "origin": [40, 40],
+    "cols": 4,
+    "gapX": 56,
+    "gapY": 72,
+    "cellW": 150,
+    "cellH": 56
+  },
+  "components": [
+    { "id": "acc", "type": "frontend", "label": "حسابداری", "sublabel": "پذیرش SPA", "row": 0, "col": 2, "tag": "API" },
+    { "id": "accDb", "type": "database", "label": "MySQL Acc", "sublabel": "ghazali1_Acc", "row": 0, "col": 3 },
+    { "id": "people", "type": "external", "label": "زبان‌آموز و مدرس", "sublabel": "مرورگر", "row": 1, "col": 0 },
+    { "id": "panel", "type": "backend", "label": "پنل آموزشی", "sublabel": "panel.ghazalify.com", "row": 1, "col": 1, "tag": "PHP" },
+    { "id": "panelDb", "type": "database", "label": "MySQL پنل", "sublabel": "ghazali1_panel", "row": 1, "col": 2 },
+    { "id": "books", "type": "backend", "label": "فروشگاه کتاب", "sublabel": "books.ghazalify.com", "row": 2, "col": 1 },
+    { "id": "booksDb", "type": "database", "label": "MySQL فروشگاه", "sublabel": "orders", "row": 2, "col": 2 }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "DirectAdmin · ghazali1",
+      "wraps": ["acc", "panel", "books", "accDb", "panelDb", "booksDb"]
+    }
+  ],
+  "connections": [
+    { "id": "people-to-panel", "from": "people", "to": "panel", "label": "HTTPS", "variant": "emphasis" },
+    { "id": "panel-to-paneldb", "from": "panel", "to": "panelDb", "label": "PDO", "variant": "emphasis" },
+    { "id": "acc-to-accdb", "from": "acc", "to": "accDb", "label": "SQL" },
+    { "id": "panel-to-books", "from": "panel", "to": "books", "label": "panel-order", "labelDy": 24 },
+    { "id": "books-to-booksdb", "from": "books", "to": "booksDb", "label": "سفارش" },
+    { "id": "acc-to-books", "from": "acc", "to": "books", "label": "acc-orders", "labelDy": -18 }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "هویت واحد",
+      "items": [
+        "شماره پرونده = username پنل = studentCode Acc",
+        "پنل با accounting_pdo مستقیم به Acc می‌نویسد"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "فلوها",
+      "items": [
+        "رول‌کال سوپروایزر حاضر/غایب را همان‌جا عوض می‌کند",
+        "Study Plan و بقیه SMS به users.phone می‌روند نه پدر/مادر",
+        "سفارش کتاب در فروشگاه می‌ماند؛ Acc Bookstore فقط approved/ordered را می‌بیند"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "بیرون از MySQL",
+      "items": [
+        "قیمت اینجا بوک حدود ۲۰ دقیقه کش می‌شود",
+        "فراز و الوکام دادهٔ اصلی را پیش خودشان دارند"
+      ]
+    }
+  ]
+}
