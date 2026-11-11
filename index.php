@@ -47,8 +47,8 @@ if ($bootJson === false) {
 $preload = '';
 if ($user) {
     $preload =
-        '<link rel="stylesheet" href="/assets/index-BzoE7TQo.css?v=acc-yekan2" crossorigin="anonymous">' .
-        '<link rel="modulepreload" href="/assets/index-DMmAISFC.js?v=clock-fix1" crossorigin="anonymous">' .
+        '<link rel="stylesheet" href="/assets/index-BzoE7TQo.css?v=lm-brand1" crossorigin="anonymous">' .
+        '<link rel="modulepreload" href="/assets/index-DMmAISFC.js?v=lm-brand1" crossorigin="anonymous">' .
         '<link rel="preload" href="/term-menu.js?v=term-tags-9" as="script">' .
         '<link rel="preload" href="/payroll.js?v=pay-boot4" as="script">' .
         '<link rel="preload" href="/acc-ui.js?v=mobi2" as="script">' .
