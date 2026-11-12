@@ -564,10 +564,16 @@ switch ($action) {
         $ok = false;
         if ($user) {
             $stored = (string) $user['password'];
-            $ok = hash_equals($stored, $password) || password_verify($password, $stored);
+            // Only password_hash()/password_verify(). Plaintext compare was removed after live audit.
+            if ($stored !== '' && str_starts_with($stored, '$')) {
+                $ok = password_verify($password, $stored);
+            }
         }
         if (!$ok) {
             sendJson(['success' => false, 'message' => 'نام کاربری یا رمز عبور اشتباه است'], 401);
+        }
+        if (function_exists('session_regenerate_id')) {
+            session_regenerate_id(true);
         }
         $safe = [
             'id' => (string) $user['id'],
@@ -1026,7 +1032,7 @@ switch ($action) {
             if (function_exists('ghazal_error_report')) {
                 ghazal_error_report('DB-SAVE', 'ثبت گروهی دانش‌آموز در حسابداری ناموفق بود.', ghazal_error_trim($e->getMessage()));
             }
-            sendJson(['error' => $e->getMessage()], 500);
+            sendJson(['error' => 'ثبت گروهی انجام نشد'], 500);
         }
         break;
 
@@ -1142,7 +1148,7 @@ switch ($action) {
             if (function_exists('ghazal_error_report')) {
                 ghazal_error_report('DB-SAVE', 'ثبت گروهی فیش حقوق ناموفق بود.', ghazal_error_trim($e->getMessage()));
             }
-            sendJson(['error' => $e->getMessage()], 500);
+            sendJson(['error' => 'ثبت گروهی حقوق انجام نشد'], 500);
         }
         break;
 
@@ -1240,7 +1246,7 @@ switch ($action) {
             if (function_exists('ghazal_error_report')) {
                 ghazal_error_report('DB-SAVE', 'ثبت گروهی شهریه سطح ناموفق بود.', ghazal_error_trim($e->getMessage()));
             }
-            sendJson(['error' => $e->getMessage()], 500);
+            sendJson(['error' => 'ثبت گروهی شهریه سطح انجام نشد'], 500);
         }
         break;
 
