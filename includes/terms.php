@@ -186,6 +186,15 @@ function classes_ensure_schema(PDO $pdo) {
     } catch (Exception $e) {
         error_log('classes origin_term_id: ' . $e->getMessage());
     }
+    try {
+        $col = $pdo->query("SHOW COLUMNS FROM classes LIKE 'schedule_type'")->fetch(PDO::FETCH_ASSOC);
+        $type = strtolower((string)($col['Type'] ?? ''));
+        if ($col && preg_match('/varchar\((\d+)\)/', $type, $m) && (int)$m[1] < 40) {
+            $pdo->exec("ALTER TABLE classes MODIFY schedule_type VARCHAR(40) NOT NULL DEFAULT ''");
+        }
+    } catch (Exception $e) {
+        error_log('classes schedule_type width: ' . $e->getMessage());
+    }
 }
 
 function class_billing_term_id(PDO $pdo, array $class) {

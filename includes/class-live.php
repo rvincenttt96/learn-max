@@ -1,7 +1,7 @@
 <?php
 /**
  * Green live-session marker next to class titles.
- * A class is live on its odd/even day, between schedule start and end (Asia/Tehran).
+ * A class is live on its scheduled weekdays, between schedule start and end (Asia/Tehran).
  * Default session length is 90 minutes when only a start time is stored.
  */
 
@@ -9,18 +9,21 @@ if (function_exists('class_live_dot')) {
     return;
 }
 
+require_once __DIR__ . '/schedule-days.php';
+
 function class_live_now($now = null) {
     date_default_timezone_set('Asia/Tehran');
     return $now === null ? time() : (int)$now;
 }
 
 function class_live_today_type($now = null) {
-    $now = class_live_now($now);
-    $weekday = (int)date('w', $now);
-    if ($weekday === 5) {
+    // Backward-compatible: even/odd slot for Friday-null callers.
+    $code = schedule_days_today_code($now);
+    if ($code === null) {
         return null;
     }
-    return in_array($weekday, [6, 1, 3], true) ? 'even' : 'odd';
+    $w = (int)(schedule_day_defs()[$code]['w'] ?? -1);
+    return in_array($w, [6, 1, 3], true) ? 'even' : 'odd';
 }
 
 function class_live_parse_schedule($schedule, $now = null) {
@@ -67,9 +70,7 @@ function class_live_window($class, $now = null) {
     if ($starts !== '' && preg_match('/^\d{4}-\d{2}-\d{2}$/', $starts) && $starts > date('Y-m-d', $now)) {
         return null;
     }
-    $want = strtolower(trim((string)($class['schedule_type'] ?? '')));
-    $today = class_live_today_type($now);
-    if ($today === null || ($want !== 'odd' && $want !== 'even') || $want !== $today) {
+    if (!schedule_days_matches_class($class, $now)) {
         return null;
     }
     return class_live_parse_schedule($class['schedule'] ?? '', $now);

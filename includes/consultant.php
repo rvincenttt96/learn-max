@@ -53,11 +53,12 @@ function consultant_ensure_role_column(PDO $pdo) {
 
 function consultant_schedule_label($schedule_type, $schedule) {
     $when = trim((string)$schedule);
-    $kind = '';
-    if ($schedule_type === 'odd') {
-        $kind = 'فرد';
-    } elseif ($schedule_type === 'even') {
-        $kind = 'زوج';
+    if (!function_exists('schedule_days_label')) {
+        require_once __DIR__ . '/schedule-days.php';
+    }
+    $kind = schedule_days_label($schedule_type, 'fa');
+    if ($kind === 'نامشخص') {
+        $kind = '';
     }
     if ($when !== '' && $kind !== '') {
         return $when . ' — ' . $kind;

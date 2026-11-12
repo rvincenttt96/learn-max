@@ -82,7 +82,7 @@ function german_ensure_schema(PDO $pdo) {
             fee_per_session INT NOT NULL DEFAULT 0,
             teacher_id INT NOT NULL DEFAULT 0,
             schedule VARCHAR(80) NOT NULL DEFAULT '',
-            schedule_type VARCHAR(20) NOT NULL DEFAULT '',
+            schedule_type VARCHAR(40) NOT NULL DEFAULT '',
             session_status_json TEXT NULL,
             session_dates_json TEXT NULL,
             note TEXT NULL,
@@ -118,6 +118,15 @@ function german_ensure_schema(PDO $pdo) {
             KEY idx_gp_class_student (class_id, student_id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
     ");
+    try {
+        $col = $pdo->query("SHOW COLUMNS FROM german_classes LIKE 'schedule_type'")->fetch(PDO::FETCH_ASSOC);
+        $type = strtolower((string)($col['Type'] ?? ''));
+        if ($col && preg_match('/varchar\((\d+)\)/', $type, $m) && (int)$m[1] < 40) {
+            $pdo->exec("ALTER TABLE german_classes MODIFY schedule_type VARCHAR(40) NOT NULL DEFAULT ''");
+        }
+    } catch (PDOException $e) {
+        error_log('german schedule_type width: ' . $e->getMessage());
+    }
     try {
         german_seed_fees($pdo);
         german_seed_supervisor($pdo);
@@ -240,13 +249,14 @@ function german_kind_badge($kind) {
 }
 
 function german_day_badge($type) {
-    if ($type === 'odd') {
-        return ['day-odd', 'روزهای فرد'];
+    if (!function_exists('schedule_days_label')) {
+        require_once __DIR__ . '/schedule-days.php';
     }
-    if ($type === 'even') {
-        return ['day-even', 'روزهای زوج'];
+    $label = schedule_days_label($type, 'fa');
+    if ($label === '' || $label === 'نامشخص') {
+        return ['', ''];
     }
-    return ['', ''];
+    return [schedule_days_badge_class($type), $label];
 }
 
 function german_is_german_role($role) {

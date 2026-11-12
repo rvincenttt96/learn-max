@@ -31,7 +31,14 @@ try {
         $manual_fee = (int)preg_replace('/[^\d]/', '', ghazal_normalize_digits($_POST['fee_per_session'] ?? '0'));
         $teacher_id = (int)($_POST['teacher_id'] ?? 0);
         $schedule = trim((string)($_POST['schedule'] ?? ''));
-        $schedule_type = trim((string)($_POST['schedule_type'] ?? ''));
+        if (!function_exists('schedule_days_from_input')) {
+            require_once __DIR__ . '/../../includes/schedule-days.php';
+        }
+        $picked = schedule_days_from_input($_POST);
+        $schedule_type = $picked ? schedule_days_encode($picked) : '';
+        if ($schedule_type !== '' && count($picked) !== 2) {
+            throw new Exception('اگر روز می‌گذارید دقیقاً ۲ روز انتخاب کنید.');
+        }
         $student_ids = $_POST['student_ids'] ?? [];
         if (!is_array($student_ids)) {
             $student_ids = $student_ids === '' ? [] : explode(',', (string)$student_ids);
@@ -52,9 +59,6 @@ try {
         }
         if ($title === '') {
             $title = $level . ' — ' . german_kind_label($kind);
-        }
-        if ($schedule_type !== '' && !in_array($schedule_type, ['odd', 'even'], true)) {
-            $schedule_type = '';
         }
         $fees = german_fees_map($pdo);
         if ($kind === 'semi_private' && $manual_fee <= 0) {

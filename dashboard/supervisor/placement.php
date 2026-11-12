@@ -7,6 +7,7 @@ require_once '../../includes/db.php';
 require_once '../../includes/terms.php';
 require_once '../../includes/year-program.php';
 require_once '../../includes/placement.php';
+require_once '../../includes/schedule-days.php';
 require_role('supervisor');
 
 $current_page = 'placement.php';
@@ -64,14 +65,14 @@ function placement_type_label($type) {
 }
 
 function placement_day_label($type) {
-    $type = strtolower(trim((string)$type));
-    if ($type === 'odd') {
-        return ['odd', 'روزهای فرد', 'day-odd'];
-    }
-    return ['even', 'روزهای زوج', 'day-even'];
+    $label = schedule_days_label($type, 'fa');
+    $badge = schedule_days_badge_class($type);
+    $encoded = schedule_days_encode(schedule_days_normalize($type));
+    return [$encoded !== '' ? $encoded : 'custom', $label, $badge];
 }
 
 require_once 'layout.php';
+echo schedule_days_picker_assets();
 ?>
 
 <link type="text/css" rel="stylesheet" href="https://unpkg.com/@majidh1/jalalidatepicker/dist/jalalidatepicker.min.css">
@@ -294,12 +295,9 @@ require_once 'layout.php';
                         <option value="private" <?= $type[0] === 'private' ? 'selected' : '' ?>>خصوصی</option>
                     </select>
                 </div>
-                <div>
-                    <div class="plc-label">روز برگزاری</div>
-                    <select class="plc-select js-days">
-                        <option value="odd" <?= $day[0] === 'odd' ? 'selected' : '' ?>>فرد (یکشنبه / سه‌شنبه / پنجشنبه)</option>
-                        <option value="even" <?= $day[0] === 'even' ? 'selected' : '' ?>>زوج (شنبه / دوشنبه / چهارشنبه)</option>
-                    </select>
+                <div style="grid-column: 1 / -1;">
+                    <div class="plc-label">روزهای برگزاری (دقیقاً ۲ روز)</div>
+                    <?= schedule_days_picker_markup('schedule_days[]', $class['schedule_type'] ?? '', ['id_prefix' => 'plc-' . (int)($class['id'] ?? 0)]) ?>
                 </div>
                 <div>
                     <div class="plc-label">ساعت کلاس</div>
@@ -378,6 +376,8 @@ const TERM_TITLE = <?= json_encode($active_term_title, JSON_UNESCAPED_UNICODE | 
 const PREVIOUS = <?= json_encode($previous_payload, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>;
 const STUDENTS = <?= json_encode($students_catalog, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>;
 const TEACHERS = <?= json_encode($teachers, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>;
+const DAY_DEFS = <?= json_encode(schedule_day_defs(), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>;
+const DAY_ORDER = <?= json_encode(schedule_days_order(), JSON_UNESCAPED_UNICODE) ?>;
 const INTERVIEWERS = <?= json_encode($interviewers, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) ?>;
 
 function escapeHtml(s) {
@@ -545,19 +545,17 @@ function bindCard(card) {
             saveCard(card);
         });
     }
-    const daySel = card.querySelector('.js-days');
-    if (daySel) {
-        daySel.addEventListener('change', function () {
-            const badge = card.querySelector('.day-badge');
-            if (!badge) return;
-            if (this.value === 'odd') {
-                badge.className = 'day-badge day-odd';
-                badge.textContent = 'روزهای فرد';
-            } else {
-                badge.className = 'day-badge day-even';
-                badge.textContent = 'روزهای زوج';
+    card.querySelectorAll('.js-day').forEach(function (box) {
+        box.addEventListener('change', function () {
+            const checked = selectedDaysOf(card);
+            if (checked.length > 2) {
+                box.checked = false;
             }
+            refreshDayBadge(card);
         });
+    });
+    if (window.ghazalScheduleDaysBoot) {
+        window.ghazalScheduleDaysBoot();
     }
 }
 
@@ -629,10 +627,69 @@ function typeMeta(type) {
     return map[type] || map.offline;
 }
 
+function normalizeDays(raw) {
+    let parts = [];
+    if (Array.isArray(raw)) {
+        parts = raw;
+    } else {
+        const s = String(raw || '').trim();
+        if (s === 'even' || s.indexOf('زوج') !== -1) parts = ['sat', 'mon', 'wed'];
+        else if (s === 'odd' || s.indexOf('فرد') !== -1) parts = ['sun', 'tue', 'thu'];
+        else parts = s.split(/[\s,|\/]+/).filter(Boolean);
+    }
+    const alias = {
+        saturday:'sat', sat:'sat', 'شنبه':'sat',
+        sunday:'sun', sun:'sun', 'یکشنبه':'sun',
+        monday:'mon', mon:'mon', 'دوشنبه':'mon',
+        tuesday:'tue', tue:'tue', 'سه‌شنبه':'tue', 'سه شنبه':'tue',
+        wednesday:'wed', wed:'wed', 'چهارشنبه':'wed',
+        thursday:'thu', thu:'thu', 'پنجشنبه':'thu', 'پنج‌شنبه':'thu'
+    };
+    const set = {};
+    parts.forEach(function (p) {
+        const key = String(p || '').toLowerCase().trim();
+        const code = alias[key] || (DAY_DEFS[key] ? key : '');
+        if (code) set[code] = true;
+    });
+    return DAY_ORDER.filter(function (code) { return !!set[code]; });
+}
+
 function dayMeta(day) {
-    return day === 'even'
-        ? ['روزهای زوج', 'day-even']
-        : ['روزهای فرد', 'day-odd'];
+    const days = normalizeDays(day);
+    const label = days.map(function (c) { return (DAY_DEFS[c] && DAY_DEFS[c].fa) || c; }).join(' / ') || 'نامشخص';
+    let badge = 'day-custom';
+    const enc = days.join(',');
+    if (enc === 'sat,mon,wed') badge = 'day-even';
+    if (enc === 'sun,tue,thu') badge = 'day-odd';
+    return [label, badge, enc];
+}
+
+function daysPickerHtml(selected, idPrefix) {
+    const days = normalizeDays(selected);
+    let html = '<div class="schedule-days-picker" data-exact="2"><div class="schedule-days-grid">';
+    DAY_ORDER.forEach(function (code) {
+        const id = idPrefix + '-' + code;
+        const checked = days.indexOf(code) !== -1 ? ' checked' : '';
+        html += '<label class="schedule-day-chip" for="' + id + '">'
+            + '<input type="checkbox" class="js-day" name="schedule_days[]" value="' + code + '" id="' + id + '"' + checked + '>'
+            + '<span>' + escapeHtml((DAY_DEFS[code] && DAY_DEFS[code].fa) || code) + '</span></label>';
+    });
+    html += '</div><div class="schedule-days-hint">دقیقاً ۲ روز را انتخاب کنید.</div></div>';
+    return html;
+}
+
+function selectedDaysOf(card) {
+    return Array.prototype.slice.call(card.querySelectorAll('.js-day:checked')).map(function (el) {
+        return el.value;
+    });
+}
+
+function refreshDayBadge(card) {
+    const badge = card.querySelector('.day-badge');
+    if (!badge) return;
+    const meta = dayMeta(selectedDaysOf(card));
+    badge.className = 'day-badge ' + meta[1];
+    badge.textContent = meta[0];
 }
 
 function teacherOptions(selected) {
@@ -655,9 +712,10 @@ function interviewerOptions(selected, legacyName) {
 function buildCard(data) {
     data = data || {};
     const type = String(data.class_type || 'offline');
-    const day = String(data.schedule_type || 'odd');
+    const day = String(data.schedule_type || '');
     const tMeta = typeMeta(type);
     const dMeta = dayMeta(day);
+    const pickerId = 'plcjs-' + String(data.id || ('n' + Math.floor(Math.random() * 1e6)));
     const isNew = !Number(data.id || 0);
     const sourceId = Number(data.source_id || 0);
     const sourceNote = sourceId
@@ -700,15 +758,12 @@ function buildCard(data) {
                     </select>
                 </div>
                 <div>
-                    <div class="plc-label">روز برگزاری</div>
-                    <select class="plc-select js-days">
-                        <option value="odd" ${day!=='even'?'selected':''}>فرد (یکشنبه / سه‌شنبه / پنجشنبه)</option>
-                        <option value="even" ${day==='even'?'selected':''}>زوج (شنبه / دوشنبه / چهارشنبه)</option>
-                    </select>
-                </div>
-                <div>
                     <div class="plc-label">ساعت کلاس</div>
                     <input type="time" class="plc-input js-schedule" value="${escapeHtml(scheduleTime(data.schedule || ''))}" step="60" dir="ltr">
+                </div>
+                <div style="grid-column:1/-1">
+                    <div class="plc-label">روزهای برگزاری (دقیقاً ۲ روز)</div>
+                    ${daysPickerHtml(day, pickerId)}
                 </div>
             </div>
             <div class="js-alocom-wrap">
@@ -931,7 +986,8 @@ function payloadOf(card) {
         teacher_id: teacherId,
         class_type: fieldValue(card, 'select.js-type') || 'offline',
         create_alocom: wantsAlocom(card),
-        schedule_type: fieldValue(card, 'select.js-days') || 'odd',
+        schedule_days: selectedDaysOf(card),
+        schedule_type: selectedDaysOf(card).join(','),
         schedule: fieldValue(card, '.js-schedule'),
         student_ids: selected.map(st => Number(st.id)),
         interview_date: fieldValue(card, '.js-int-date'),

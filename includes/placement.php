@@ -607,7 +607,10 @@ function placement_save_class(PDO $pdo, array $input) {
     $title = trim((string)($input['title'] ?? $input['class_title'] ?? ''));
     $teacher_id = (int)($input['teacher_id'] ?? 0);
     $class_type = (string)($input['class_type'] ?? '');
-    $schedule_type = (string)($input['schedule_type'] ?? '');
+    if (!function_exists('schedule_days_require_two')) {
+        require_once __DIR__ . '/schedule-days.php';
+    }
+    $schedule_type = schedule_days_require_two($input);
     $schedule_raw = trim((string)($input['schedule'] ?? ''));
     $schedule = placement_schedule_for_time_input($schedule_raw);
     if ($schedule === '') {
@@ -624,7 +627,7 @@ function placement_save_class(PDO $pdo, array $input) {
     $interviewer_id = (int)($input['interviewer_id'] ?? 0);
     $interviewer_name = trim((string)($input['interviewer_name'] ?? ''));
 
-    if ($title === '' || $teacher_id <= 0 || !in_array($class_type, ['online', 'offline', 'private'], true) || !in_array($schedule_type, ['odd', 'even'], true)) {
+    if ($title === '' || $teacher_id <= 0 || !in_array($class_type, ['online', 'offline', 'private'], true)) {
         throw new Exception('لول، مدرس، نوع و روز برگزاری لازم است.');
     }
 
