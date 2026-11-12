@@ -12,6 +12,7 @@ require_once __DIR__ . '/../../includes/jdate.php';
 require_once __DIR__ . '/../../includes/rollcall.php';
 require_once __DIR__ . '/../../includes/alocom.php';
 require_once __DIR__ . '/../../includes/alocom-access.php';
+require_once __DIR__ . '/../../includes/schedule-days.php';
 
 try {
     $due = alocom_sync_due_classes($pdo);
@@ -26,11 +27,8 @@ try {
     }
 }
 
-// 1. تشخیص اینکه امروز روز زوج است یا فرد
-$today_eng_weekday = date('w'); // 0 (یکشنبه) تا 6 (شنبه)
-
-// در ایران: شنبه، دوشنبه، چهارشنبه -> زوج (even) | یکشنبه، سه‌شنبه، پنجشنبه -> فرد (odd)
-if ($today_eng_weekday == 5) {
+// 1. کلاس‌های امروز بر اساس روزهای آزاد انتخاب‌شده
+if (schedule_days_today_code() === null) {
     try {
         alocom_sync_class_access($pdo, false, false);
     } catch (Exception $e) {
@@ -42,21 +40,21 @@ if ($today_eng_weekday == 5) {
     exit("Today is Friday. No classes.");
 }
 
-$today_type = in_array($today_eng_weekday, [6, 1, 3]) ? 'even' : 'odd';
 $today_date = date('Y-m-d');
 $now = time();
 
 try {
     // 2. پیدا کردن تمام کلاس‌های فعال امروز که حذف یا آرشیو نشده‌اند
     $stmt = $pdo->prepare("
-        SELECT c.id, c.title, c.schedule, u.full_name as teacher_name
+        SELECT c.id, c.title, c.schedule, c.schedule_type, c.class_type, u.full_name as teacher_name
         FROM classes c
         JOIN terms t ON c.term_id = t.id
         JOIN users u ON c.teacher_id = u.id
-        WHERE c.schedule_type = ? AND c.is_deleted = 0 AND " . term_sql_teaching('t') . "
+        WHERE c.is_deleted = 0 AND " . term_sql_teaching('t') . "
           AND IFNULL(c.is_archived, 0) = 0
+          AND " . schedule_days_sql_today('c.schedule_type') . "
     ");
-    $stmt->execute([$today_type]);
+    $stmt->execute();
     $classes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($classes as $class) {

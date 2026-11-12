@@ -182,7 +182,16 @@
         $('#fLevel').value = (data && data.level) || 'A1';
         $('#fKind').value = (data && data.kind) || 'group';
         $('#fSessions').value = (data && data.session_count) || 10;
-        $('#fDay').value = (data && data.schedule_type) || '';
+        const rawDays = String((data && data.schedule_type) || '').trim();
+        let dayCodes = [];
+        if (rawDays === 'even') dayCodes = ['sat', 'mon', 'wed'];
+        else if (rawDays === 'odd') dayCodes = ['sun', 'tue', 'thu'];
+        else dayCodes = rawDays.split(/[\s,|\/]+/).filter(Boolean);
+        $all('input[name="schedule_days[]"]').forEach(function (cb) {
+            cb.checked = dayCodes.indexOf(cb.value) !== -1;
+        });
+        if ($('#fDay')) $('#fDay').value = dayCodes.join(',');
+        if (window.ghazalScheduleDaysBoot) window.ghazalScheduleDaysBoot();
         $('#fSchedule').value = (data && data.schedule) || '';
         $('#fTeacher').value = (data && data.teacher_id) || 0;
         const ids = (data && data.student_ids) || [];

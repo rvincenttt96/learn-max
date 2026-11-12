@@ -158,12 +158,13 @@ if (!empty($input_data['action']) && $input_data['action'] == 'save_edit') {
         $class_type = $input_data['class_type'] ?? '';
         $online_link = trim($input_data['online_link'] ?? '');
         $schedule = trim($input_data['schedule'] ?? '');
-        $schedule_type = $input_data['schedule_type'] ?? '';
+        require_once '../../includes/schedule-days.php';
+        $schedule_type = schedule_days_require_two($input_data);
         require_once '../../includes/class-roster.php';
         $replace_roster = class_roster_should_replace($input_data);
         $student_ids = class_roster_int_ids($input_data['student_ids'] ?? []);
         
-        if (empty($class_title) || empty($teacher_id) || !in_array($class_type, ['online', 'offline', 'private']) || empty($schedule_type)) {
+        if (empty($class_title) || empty($teacher_id) || !in_array($class_type, ['online', 'offline', 'private'])) {
             throw new Exception('لطفاً تمامی فیلدهای ستاره‌دار را پر کنید.');
         }
         
@@ -396,7 +397,9 @@ if (!empty($input_data['action']) && $input_data['action'] == 'set_forward') {
 }
 
 $title = 'ترم و کلاس‌ها';
+require_once '../../includes/schedule-days.php';
 require_once 'layout.php';
+echo schedule_days_picker_assets();
 require_once '../../includes/db.php';
 require_once '../../includes/terms.php';
 require_once '../../includes/year-program.php';
@@ -1095,11 +1098,7 @@ if ($active_tab == 'archived') {
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <?php if ($class['schedule_type'] == 'odd'): ?>
-                                    <span class="badge bg-info">روز فرد</span>
-                                <?php else: ?>
-                                    <span class="badge bg-warning">روز زوج</span>
-                                <?php endif; ?>
+                                <span class="badge bg-info"><?= htmlspecialchars(schedule_days_label($class['schedule_type'] ?? '', 'fa')) ?></span>
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
@@ -1211,11 +1210,7 @@ if ($active_tab == 'archived') {
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <?php if ($class['schedule_type'] == 'odd'): ?>
-                                            <span class="badge bg-info">Sun/Tue/Thu</span>
-                                        <?php else: ?>
-                                            <span class="badge bg-warning">Sat/Mon/Wed</span>
-                                        <?php endif; ?>
+                                        <span class="badge bg-info"><?= htmlspecialchars(schedule_days_label($class['schedule_type'] ?? '', 'fa')) ?></span>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-danger"
@@ -1288,11 +1283,7 @@ if ($active_tab == 'archived') {
                                                 <?php endif; ?>
                                             </td>
                                             <td>
-                                                <?php if ($a_class['schedule_type'] == 'odd'): ?>
-                                                    <span class="badge bg-info">Sun/Tue/Thu</span>
-                                                <?php else: ?>
-                                                    <span class="badge bg-warning">Sat/Mon/Wed</span>
-                                                <?php endif; ?>
+                                                <span class="badge bg-info"><?= htmlspecialchars(schedule_days_label($a_class['schedule_type'] ?? '', 'fa')) ?></span>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-sm btn-success" 
@@ -1359,12 +1350,10 @@ if ($active_tab == 'archived') {
                             <input type="text" id="edit-schedule" name="schedule" class="form-control"
                                    placeholder="شنبه 16:00">
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label" for="edit-schedule-type">روز کلاس *</label>
-                            <select id="edit-schedule-type" name="schedule_type" class="form-select" required>
-                                <option value="odd">روز فرد</option>
-                                <option value="even">روز زوج</option>
-                            </select>
+                        <div class="col-md-12">
+                            <label class="form-label">روزهای برگزاری *</label>
+                            <?php echo schedule_days_picker_markup('schedule_days[]', '', ['id_prefix' => 'edit']); ?>
+                            <input type="hidden" id="edit-schedule-type" name="schedule_type" value="">
                         </div>
                     </div>
 
@@ -1599,6 +1588,21 @@ function unarchiveClass(classId) {
 }
 
 // === توابع مودال ویرایش ===
+function normalizeEditDays(raw) {
+    let parts = [];
+    const s = String(raw || '').trim();
+    if (s === 'even' || s.indexOf('زوج') !== -1) parts = ['sat', 'mon', 'wed'];
+    else if (s === 'odd' || s.indexOf('فرد') !== -1) parts = ['sun', 'tue', 'thu'];
+    else parts = s.split(/[\s,|\/]+/).filter(Boolean);
+    const ok = {sat:1,sun:1,mon:1,tue:1,wed:1,thu:1};
+    const set = {};
+    parts.forEach(function (p) {
+        const key = String(p || '').toLowerCase().trim();
+        if (ok[key]) set[key] = true;
+    });
+    return ['sat','sun','mon','tue','wed','thu'].filter(function (c) { return !!set[c]; });
+}
+
 function openEditModal(classId, title, schedule, teacherId, classType, onlineLink, scheduleType) {
     document.getElementById('edit-class-id').value = classId;
     document.getElementById('edit-class-title').value = title;
@@ -1606,7 +1610,12 @@ function openEditModal(classId, title, schedule, teacherId, classType, onlineLin
     document.getElementById('edit-teacher-id').value = teacherId;
     document.getElementById('edit-class-type').value = classType;
     document.getElementById('edit-online-link').value = onlineLink;
-    document.getElementById('edit-schedule-type').value = scheduleType;
+    const days = normalizeEditDays(scheduleType);
+    document.querySelectorAll('#editClassModal input[name="schedule_days[]"]').forEach(function (box) {
+        box.checked = days.indexOf(box.value) !== -1;
+    });
+    document.getElementById('edit-schedule-type').value = days.join(',');
+    if (window.ghazalScheduleDaysBoot) window.ghazalScheduleDaysBoot();
     
     loadStudentsForClass(classId);
     
@@ -1781,7 +1790,8 @@ function saveClassEdit() {
         class_type: formData.get('class_type'),
         online_link: formData.get('online_link'),
         schedule: formData.get('schedule'),
-        schedule_type: formData.get('schedule_type'),
+        schedule_days: Array.prototype.slice.call(document.querySelectorAll('#editClassModal input[name="schedule_days[]"]:checked')).map(function (el) { return el.value; }),
+        schedule_type: Array.prototype.slice.call(document.querySelectorAll('#editClassModal input[name="schedule_days[]"]:checked')).map(function (el) { return el.value; }).join(','),
         roster_ready: rosterReady,
         student_ids: studentIds
     };

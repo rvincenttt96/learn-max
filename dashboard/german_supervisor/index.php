@@ -1,7 +1,9 @@
 <?php
 $title = 'EAS آلمانی';
 $current_page = 'index.php';
+require_once '../../includes/schedule-days.php';
 require_once 'layout.php';
+echo schedule_days_picker_assets();
 
 $classes = german_load_classes($pdo);
 $teachers = german_people($pdo, 'german_teacher');
@@ -233,19 +235,14 @@ $boot = [
                 </label>
             </div>
             <div class="g-fee-preview" id="feePreview"></div>
-            <div class="g-grid-2">
-                <label class="g-field">
-                    <span>روز</span>
-                    <select class="g-input" name="schedule_type" id="fDay">
-                        <option value="">—</option>
-                        <option value="odd">فرد</option>
-                        <option value="even">زوج</option>
-                    </select>
-                </label>
-                <label class="g-field">
-                    <span>ساعت</span>
-                    <input class="g-input" name="schedule" id="fSchedule" placeholder="۱۹:۳۰">
-                </label>
+            <div class="g-field">
+                <span>روزهای برگزاری (اختیاری — دقیقاً ۲ روز)</span>
+                <?= schedule_days_picker_markup('schedule_days[]', '', ['id_prefix' => 'gday']) ?>
+                <input type="hidden" name="schedule_type" id="fDay" value="">
+            </div>
+            <div class="g-field">
+                <span>ساعت</span>
+                <input class="g-input" name="schedule" id="fSchedule" placeholder="۱۹:۳۰">
             </div>
             <div class="g-field">
                 <div class="g-field-row">

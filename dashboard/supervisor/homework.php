@@ -6,24 +6,21 @@ require_once 'layout.php';
 require_once '../../includes/db.php';
 require_once '../../includes/terms.php';
 require_once '../../includes/jdate.php';
+require_once '../../includes/schedule-days.php';
 require_role('supervisor');
 
 $tab = $_GET['tab'] ?? 'today';
 $tab = in_array($tab, ['today', 'odd', 'even']) ? $tab : 'today';
 
-$today_weekday = jdate('w');
-$is_today_odd = in_array($today_weekday, [1, 3, 5]);
+$today_code = schedule_days_today_code();
+$is_friday = ($today_code === null);
 
 if ($tab === 'today') {
-    if ($today_weekday == 6) {
-        $schedule_condition = '1=0';
-    } else {
-        $schedule_condition = $is_today_odd ? "c.schedule_type = 'odd'" : "c.schedule_type = 'even'";
-    }
+    $schedule_condition = $is_friday ? '1=0' : schedule_days_sql_today('c.schedule_type');
 } elseif ($tab === 'odd') {
-    $schedule_condition = "c.schedule_type = 'odd'";
+    $schedule_condition = schedule_days_sql_bucket('odd', 'c.schedule_type');
 } else {
-    $schedule_condition = "c.schedule_type = 'even'";
+    $schedule_condition = schedule_days_sql_bucket('even', 'c.schedule_type');
 }
 
 
@@ -88,7 +85,7 @@ foreach ($classes as $class) {
             <h4>
                 <?php
                 if ($tab == 'today') {
-                    echo $today_weekday == 6 ? 'امروز جمعه است' : 'کلاسی برای امروز یافت نشد';
+                    echo $is_friday ? 'امروز جمعه است' : 'کلاسی برای امروز یافت نشد';
                 } else {
                     echo 'کلاسی یافت نشد';
                 }
@@ -97,10 +94,11 @@ foreach ($classes as $class) {
             <p class="text-light">
                 <?php
                 if ($tab == 'today') {
-                    if ($today_weekday == 6) {
+                    if ($is_friday) {
                         echo 'جمعه روز تعطیل است.';
                     } else {
-                        echo 'کلاسی برای روز ' . ($is_today_odd ? 'فرد' : 'زوج') . ' تعریف نشده است.';
+                        $fa = schedule_day_defs()[$today_code]['fa'] ?? $today_code;
+                        echo 'کلاسی برای روز ' . $fa . ' تعریف نشده است.';
                     }
                 } else {
                     echo 'برای مشاهده تکالیف، کلاسی تعریف کنید.';

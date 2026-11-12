@@ -50,6 +50,7 @@ require_once '../../includes/db.php';
 // require_once '../../includes/jdate-enhanced.php';
 
 require_role('supervisor');
+require_once '../../includes/schedule-days.php';
 
 $stmt = $pdo->prepare("
     SELECT c.id, c.title, c.schedule, c.schedule_type, c.class_type, c.online_link, u.full_name as teacher_name
@@ -63,17 +64,6 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute();
 $classes = $stmt->fetchAll();
-
-$odd_classes = [];
-$even_classes = [];
-
-foreach ($classes as $class) {
-    if ($class['schedule_type'] == 'odd') {
-        $even_classes[] = $class;
-    } else {
-        $odd_classes[] = $class;
-    }
-}
 ?>
 
 <link href="../../assets/css/supervisor/supervisor-dashboard.css?v=<?= time() ?>" rel="stylesheet">
@@ -82,31 +72,19 @@ foreach ($classes as $class) {
 <?php
 date_default_timezone_set('Asia/Tehran');
 
-$today_eng_weekday = date('w'); 
-
-$mapping = [
-    6 => 1, // شنبه
-    0 => 2, // یکشنبه
-    1 => 3, // دوشنبه
-    2 => 4, // سه‌شنبه
-    3 => 5, // چهارشنبه
-    4 => 6, // پنج‌شنبه
-    5 => 7  // جمعه
-];
-
-$today_weekday = $mapping[$today_eng_weekday];
-
-if ($today_weekday == 7) {
-    $active_classes = [];
+$today_code = schedule_days_today_code();
+$active_classes = [];
+if ($today_code === null) {
     $section_title = 'It is Friday you know...';
-} 
-elseif (in_array($today_weekday, [1, 3, 5])) {
-    $active_classes = $odd_classes; 
-    $section_title = 'Classes for today (Sat/Mon/Wed)'; 
-} 
-else {
-    $active_classes = $even_classes; 
-    $section_title = 'Classes for today (Sun/Tue/Thu)'; 
+} else {
+    foreach ($classes as $class) {
+        if (schedule_days_matches_class($class)) {
+            $active_classes[] = $class;
+        }
+    }
+    $defs = schedule_day_defs();
+    $fa = $defs[$today_code]['fa'] ?? $today_code;
+    $section_title = 'Classes for today (' . $fa . ')';
 }
 ?>
 

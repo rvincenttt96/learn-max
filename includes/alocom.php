@@ -5,6 +5,7 @@
 
 require_once __DIR__ . '/rollcall.php';
 require_once __DIR__ . '/terms.php';
+require_once __DIR__ . '/schedule-days.php';
 
 function alocom_log($message) {
     $line = date('[Y-m-d H:i:s] ') . $message . "\n";
@@ -939,7 +940,7 @@ function alocom_sync_due_classes(PDO $pdo, $now = null, $force_class_id = null, 
     if ($today_eng_weekday === 5 && $force_class_id === null) {
         return ['skipped' => 'friday'];
     }
-    $today_type = in_array($today_eng_weekday, [6, 1, 3], true) ? 'even' : 'odd';
+    $today_code = schedule_days_today_code($now);
 
     $sql = "
         SELECT c.id, c.title, c.schedule, c.schedule_type, c.class_type, c.online_link,
@@ -958,13 +959,12 @@ function alocom_sync_due_classes(PDO $pdo, $now = null, $force_class_id = null, 
         $sql .= " AND c.id = ?";
         $params[] = (int)$force_class_id;
     } else {
-        $sql .= " AND c.schedule_type = ?";
-        $params[] = $today_type;
+        $sql .= " AND " . schedule_days_sql_today('c.schedule_type');
     }
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $classes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    alocom_log('due scan type=' . $today_type . ' n=' . count($classes) . ' now=' . date('H:i:s', $now));
+    alocom_log('due scan day=' . ($today_code ?: 'none') . ' n=' . count($classes) . ' now=' . date('H:i:s', $now));
     if (!$classes) {
         return ['synced' => []];
     }

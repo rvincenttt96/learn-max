@@ -241,14 +241,10 @@ function supervisor_ai_weekday_fa($gregorian) {
 }
 
 function supervisor_ai_schedule_label($schedule_type) {
-    $t = strtolower(trim((string)$schedule_type));
-    if ($t === 'odd') {
-        return 'فرد (یکشنبه/سه‌شنبه/پنجشنبه)';
+    if (!function_exists('schedule_days_label')) {
+        require_once __DIR__ . '/schedule-days.php';
     }
-    if ($t === 'even') {
-        return 'زوج (شنبه/دوشنبه/چهارشنبه)';
-    }
-    return 'نامشخص';
+    return schedule_days_label($schedule_type, 'fa');
 }
 
 function supervisor_ai_date_pack($gregorian, $relative = '') {
@@ -772,11 +768,21 @@ function supervisor_ai_class_day_code($class) {
     if ($t === 'even' || $t === 'odd') {
         return $t;
     }
-    $days = (string)($class['days'] ?? '');
-    if (strpos($days, 'زوج') !== false) {
+    if (!function_exists('schedule_days_normalize')) {
+        require_once __DIR__ . '/schedule-days.php';
+    }
+    $days = schedule_days_normalize($t !== '' ? $t : ($class['days'] ?? ''));
+    if ($days && !array_diff($days, ['sat', 'mon', 'wed'])) {
         return 'even';
     }
-    if (strpos($days, 'فرد') !== false) {
+    if ($days && !array_diff($days, ['sun', 'tue', 'thu'])) {
+        return 'odd';
+    }
+    $label = (string)($class['days'] ?? '');
+    if (strpos($label, 'زوج') !== false) {
+        return 'even';
+    }
+    if (strpos($label, 'فرد') !== false) {
         return 'odd';
     }
     return '';
@@ -1968,9 +1974,11 @@ function supervisor_ai_list_classes(PDO $pdo, $query = '', $day = '') {
           AND " . term_sql_teaching('t') . "
     ";
     $params = [];
-    if ($day_code !== '') {
-        $sql .= " AND c.schedule_type = ?";
-        $params[] = $day_code;
+    if ($day_code === 'even' || $day_code === 'odd') {
+        if (!function_exists('schedule_days_sql_bucket')) {
+            require_once __DIR__ . '/schedule-days.php';
+        }
+        $sql .= ' AND ' . schedule_days_sql_bucket($day_code, 'c.schedule_type');
     }
     if ($name_query !== '') {
         $ors = ['c.title LIKE ?', 'u.full_name LIKE ?'];
@@ -2005,10 +2013,10 @@ function supervisor_ai_list_classes(PDO $pdo, $query = '', $day = '') {
     $even = 0;
     $odd = 0;
     foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $row) {
-        $code = strtolower(trim((string)($row['schedule_type'] ?? '')));
-        if ($code === 'even') {
+        $bucket = supervisor_ai_class_day_code($row);
+        if ($bucket === 'even') {
             $even++;
-        } elseif ($code === 'odd') {
+        } elseif ($bucket === 'odd') {
             $odd++;
         }
         $rows[] = [
@@ -2304,18 +2312,21 @@ function supervisor_ai_teaching_classes_for_day(PDO $pdo, $day_code) {
     if (!function_exists('term_sql_teaching')) {
         require_once __DIR__ . '/terms.php';
     }
+    if (!function_exists('schedule_days_sql_bucket')) {
+        require_once __DIR__ . '/schedule-days.php';
+    }
     $st = $pdo->prepare("
         SELECT c.id, c.title, c.schedule, c.schedule_type, c.class_type, u.full_name AS teacher_name
         FROM classes c
         JOIN terms t ON c.term_id = t.id
         LEFT JOIN users u ON c.teacher_id = u.id
-        WHERE c.schedule_type = ?
+        WHERE " . schedule_days_sql_bucket($day_code, 'c.schedule_type') . "
           AND c.is_deleted = 0
           AND IFNULL(c.is_archived, 0) = 0
           AND " . term_sql_teaching('t') . "
         ORDER BY c.schedule, c.title
     ");
-    $st->execute([$day_code]);
+    $st->execute();
     return $st->fetchAll(PDO::FETCH_ASSOC) ?: [];
 }
 

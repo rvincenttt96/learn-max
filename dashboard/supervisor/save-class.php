@@ -16,10 +16,13 @@ try {
         $class_type = $_POST['class_type'] ?? '';
         $online_link = trim($_POST['online_link'] ?? '');
         $schedule = trim($_POST['schedule'] ?? '');
-        $schedule_type = $_POST['schedule_type'] ?? '';
+        if (!function_exists('schedule_days_require_two')) {
+            require_once __DIR__ . '/../../includes/schedule-days.php';
+        }
+        $schedule_type = schedule_days_require_two($_POST['schedule_days'] ?? ($_POST['schedule_type'] ?? ''));
         $student_ids = $_POST['student_ids'] ?? [];
 
-        if (!$term_id || empty($class_title) || !$teacher_id || !in_array($class_type, ['online', 'offline', 'private']) || !in_array($schedule_type, ['odd', 'even'])) {
+        if (!$term_id || empty($class_title) || !$teacher_id || !in_array($class_type, ['online', 'offline', 'private'])) {
             throw new Exception('لطفاً تمامی فیلدهای ستاره‌دار را پر کنید.');
         }
 

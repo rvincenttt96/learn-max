@@ -152,22 +152,10 @@ function term_plan_session_total($class) {
 }
 
 function term_plan_day_matches($class, $ts) {
-    $w = (int)date('w', $ts);
-    if ($w === 5) {
-        return false;
+    if (!function_exists('schedule_days_matches_class')) {
+        require_once __DIR__ . '/schedule-days.php';
     }
-    $slot = in_array($w, [6, 1, 3], true) ? 'even' : 'odd';
-    $want = strtolower(trim((string)($class['schedule_type'] ?? '')));
-    if ($want === 'even' || strpos($want, 'زوج') !== false) {
-        return $slot === 'even';
-    }
-    if ($want === 'odd' || strpos($want, 'فرد') !== false) {
-        return $slot === 'odd';
-    }
-    if ($want === 'private' || strpos($want, 'خصوصی') !== false || term_plan_class_type_key($class) === 'private') {
-        return $slot === 'even';
-    }
-    return false;
+    return schedule_days_matches_class($class, $ts);
 }
 
 function term_plan_parse_date_value($raw) {
@@ -280,17 +268,21 @@ function term_plan_h($s) {
 }
 
 function term_plan_day_badge($class) {
-    $type = strtolower((string)($class['schedule_type'] ?? ''));
-    if ($type === 'even' || strpos($type, 'زوج') !== false) {
-        return ['day-even', 'روزهای زوج', 'even'];
+    if (!function_exists('schedule_days_label')) {
+        require_once __DIR__ . '/schedule-days.php';
     }
-    if ($type === 'odd' || strpos($type, 'فرد') !== false) {
-        return ['day-odd', 'روزهای فرد', 'odd'];
-    }
+    $type = (string)($class['schedule_type'] ?? '');
     if ($type === 'private' || strpos($type, 'خصوصی') !== false || term_plan_class_type_key($class) === 'private') {
-        return ['day-private', 'خصوصی', 'private'];
+        $days = schedule_days_normalize($type);
+        if (!$days) {
+            return ['day-private', 'خصوصی', 'private'];
+        }
     }
-    return ['day-even', 'نامشخص', 'all'];
+    $label = schedule_days_label($type, 'fa');
+    $badge = schedule_days_badge_class($type);
+    $days = schedule_days_normalize($type);
+    $key = $days ? schedule_days_encode($days) : 'all';
+    return [$badge, $label !== '' ? $label : 'نامشخص', $key];
 }
 
 function term_plan_type_badge_html($class) {
