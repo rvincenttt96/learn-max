@@ -1,6 +1,11 @@
 RewriteEngine On
 RewriteBase /
 
+# Force HTTPS (Let's Encrypt on accounting.learnmaxacademy.ir)
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
 # Never serve secrets / examples / source dumps from the web root.
 <IfModule mod_authz_core.c>
   <FilesMatch "(?i)^(config|identity-config|bookstore-config)(\.example)?\.php$">

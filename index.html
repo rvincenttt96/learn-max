@@ -3,19 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
-    <meta name="theme-color" content="#0a0a0e" />
+    <meta name="theme-color" content="#05070C" />
     <meta name="color-scheme" content="dark" />
-    <title dir="rtl" lang="fa">&#x2067;حسابداری آموزشگاه غزال&#x2069;</title>
+    <title dir="rtl" lang="fa">&#x2067;حسابداری لرن‌مکس&#x2069;</title>
     <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
     <meta http-equiv="Pragma" content="no-cache">
-    <link rel="icon" type="image/png" sizes="192x192" href="/assets/ghazal-logo.png?v=tab1">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/ghazal-logo.png?v=tab1">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/assets/ghazal-logo.png?v=tab1">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/learn-max-logo.png?v=lm1">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/learn-max-logo.png?v=lm1">
+    <link rel="shortcut icon" href="/assets/learn-max-logo.png?v=lm1">
+    <link rel="apple-touch-icon" href="/assets/learn-max-logo.png?v=lm1">
     <!-- gz-boot-state -->
     <style id="gz-login-critical">
-      html, body { margin:0; background:#08080c; }
-      html.gz-login-pending, html.gz-login-pending body { background:#14080c; }
+      :root {
+        --lm-blue: #1938B8;
+        --lm-teal: #51B5B2;
+        --lm-bg: #05070C;
+        --lm-panel: #0B1220;
+        --lm-ink: #E8FBFA;
+      }
+      html, body { margin:0; background:var(--lm-bg); }
+      html.gz-login-pending, html.gz-login-pending body { background:var(--lm-bg); }
       html.gz-login-pending #root,
       html.gz-login-pending #gz-boot { display:none !important; }
       html.gz-login-pending #gz-login { display:block !important; }
@@ -31,9 +38,9 @@
       html.gz-app-ready:not(.gz-booting) #gz-login,
       #gz-login[hidden] { display:none !important; }
       html.gz-app-ready:not(.gz-booting),
-      html.gz-app-ready:not(.gz-booting) body { background:#08080c; }
-      #gz-login-form { background:#fff !important; color:#111 !important; }
-      #gz-login-form input { background:#fff !important; color:#111 !important; -webkit-text-fill-color:#111 !important; }
+      html.gz-app-ready:not(.gz-booting) body { background:var(--lm-bg); }
+      #gz-login-form { background:var(--lm-panel) !important; color:#F8FAFC !important; border:1px solid rgba(81,181,178,.28) !important; }
+      #gz-login-form input { background:var(--lm-bg) !important; color:#F8FAFC !important; -webkit-text-fill-color:#F8FAFC !important; border-color:rgba(25,56,184,.45) !important; }
       #gz-boot {
         display:none;
         position:fixed;
@@ -43,21 +50,21 @@
         align-items:center;
         justify-content:center;
         gap:16px;
-        background:#08080c;
-        color:#fb7185;
+        background:var(--lm-bg);
+        color:var(--lm-teal);
         font-size:13px;
       }
       #gz-boot .gz-boot-spin {
         width:48px;height:48px;border-radius:999px;
-        border:2px solid rgba(239,68,68,.2);
-        border-top-color:#ef4444;
+        border:2px solid rgba(25,56,184,.25);
+        border-top-color:var(--lm-teal);
         animation:gz-boot-spin .8s linear infinite;
       }
       @keyframes gz-boot-spin { to { transform: rotate(360deg); } }
     </style>
     <script>
       (function () {
-        var text = "حسابداری آموزشگاه غزال";
+        var text = "حسابداری لرن‌مکس";
         var marked = "\u2067" + text + "\u2069";
         var el = document.querySelector("title");
         if (el) {
@@ -105,7 +112,7 @@
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="/login.css?v=boot4">
+    <link rel="stylesheet" href="/login.css?v=lm-brand1">
     <!-- gz-app-preload -->
     <!-- gz-books3 -->
     <style>
@@ -132,8 +139,8 @@
         align-items: center;
         justify-content: space-between;
         gap: 8px;
-        background: #12121C;
-        border: 1px solid rgba(127, 29, 29, 0.4);
+        background: #0B1220;
+        border: 1px solid rgba(25, 56, 184, 0.45);
         color: #fff;
         padding: 10px 20px;
         border-radius: 999px;
@@ -161,8 +168,8 @@
         min-width: 260px;
         max-height: 320px;
         overflow-y: auto;
-        background: rgba(15, 15, 24, 0.96);
-        border: 1px solid rgba(239, 68, 68, 0.3);
+        background: rgba(5, 7, 12, 0.96);
+        border: 1px solid rgba(81, 181, 178, 0.35);
         border-radius: 16px;
         z-index: 80;
         padding: 6px 0;
@@ -189,10 +196,10 @@
         cursor: pointer;
         text-align: right;
       }
-      .gz-term-item.is-active { color: #fff; font-weight: 700; background: rgba(127, 29, 29, 0.35); }
+      .gz-term-item.is-active { color: #fff; font-weight: 700; background: rgba(25, 56, 184, 0.35); }
       .gz-term-item:active { transform: scale(0.97); }
       @media (hover: hover) and (pointer: fine) {
-        .gz-term-item:hover { background: rgba(127, 29, 29, 0.4); }
+        .gz-term-item:hover { background: rgba(25, 56, 184, 0.4); }
       }
       .gz-term-chip {
         font-size: 9px;
@@ -214,21 +221,24 @@
     </style>
   </head>
   <body>
-    <div id="gz-login" class="gz-login" style="display:block;background:#14080c;padding:36px 20px 48px;min-height:100vh;">
+    <div id="gz-login" class="gz-login" style="display:block;background:#05070C;padding:36px 20px 48px;min-height:100vh;">
       <div class="gz-login__shell" style="display:block;max-width:400px;margin:0 auto;">
-        <p style="margin:0 0 8px;color:#fecdd3;font-size:12px;letter-spacing:.2em;text-align:center;">GHAZAL ACADEMY</p>
-        <h1 class="gz-brand__title" style="margin:0 0 12px;color:#fff;font-size:40px;font-weight:900;text-align:center;">غزال</h1>
-        <p class="gz-brand__lede" style="margin:0 0 24px;color:#f5d0d6;font-size:14px;line-height:1.8;text-align:center;">پنل حسابداری آموزشگاه<br>شهریه، ثبت‌نام و حقوق مدرسان</p>
-        <form id="gz-login-form" autocomplete="on" style="display:block;background:#fff;color:#111;border-radius:20px;padding:22px 18px;">
-          <h2 style="margin:0 0 6px;color:#111;font-size:20px;">ورود به حسابداری</h2>
-          <p style="margin:0 0 16px;color:#444;font-size:13px;">با حساب مدیریت یا پذیرش وارد شوید.</p>
-          <label for="gz-user" style="display:block;margin:0 0 6px;color:#111;font-size:13px;">نام کاربری</label>
-          <input id="gz-user" name="username" type="text" inputmode="text" autocomplete="username" required placeholder="نام کاربری" style="display:block;width:100%;height:48px;margin:0 0 14px;box-sizing:border-box;padding:0 12px;border:1px solid #ccc;border-radius:12px;background:#fff;color:#111;font-size:16px;">
-          <label for="gz-pass" style="display:block;margin:0 0 6px;color:#111;font-size:13px;">رمز عبور</label>
-          <input id="gz-pass" name="password" type="password" autocomplete="current-password" required placeholder="رمز عبور" style="display:block;width:100%;height:48px;margin:0 0 8px;box-sizing:border-box;padding:0 12px;border:1px solid #ccc;border-radius:12px;background:#fff;color:#111;font-size:16px;">
-          <button type="button" id="gz-pass-toggle" aria-pressed="false" style="display:inline-block;margin:0 0 14px;border:0;background:transparent;color:#444;font-size:13px;">نمایش رمز</button>
-          <p class="gz-error" id="gz-login-error" hidden style="color:#b91c1c;text-align:center;"></p>
-          <button type="submit" class="gz-submit" id="gz-login-btn" style="display:block;width:100%;height:50px;border:0;border-radius:12px;background:#e11d48;color:#fff;font-size:16px;font-weight:700;">
+        <div class="gz-brand" style="text-align:center;margin:0 0 28px;">
+          <img class="gz-brand__logo" src="/assets/learn-max-logo.png?v=lm1" width="148" height="148" alt="Learn Max" style="display:block;width:148px;height:148px;margin:0 auto 18px;object-fit:contain;">
+          <p class="gz-brand__mark" style="margin:0 0 10px;color:#51B5B2;font-size:12px;letter-spacing:.28em;text-align:center;">LEARN MAX</p>
+          <h1 class="gz-brand__title" style="margin:0 0 12px;color:#fff;font-size:42px;font-weight:900;text-align:center;letter-spacing:-.03em;">لرن‌مکس</h1>
+          <p class="gz-brand__lede" style="margin:0;color:#B8EDEC;font-size:14px;line-height:1.85;text-align:center;">پنل حسابداری آموزشگاه<br>شهریه، ثبت‌نام و حقوق مدرسان</p>
+        </div>
+        <form id="gz-login-form" autocomplete="on" style="display:block;background:#0B1220;color:#F8FAFC;border:1px solid rgba(81,181,178,.28);border-radius:20px;padding:22px 18px;">
+          <h2 style="margin:0 0 6px;color:#fff;font-size:20px;">ورود به حسابداری</h2>
+          <p style="margin:0 0 16px;color:#94A3B8;font-size:13px;">با حساب مدیریت یا پذیرش وارد شوید.</p>
+          <label for="gz-user" style="display:block;margin:0 0 6px;color:#B8EDEC;font-size:13px;">نام کاربری</label>
+          <input id="gz-user" name="username" type="text" inputmode="text" autocomplete="username" required placeholder="نام کاربری" style="display:block;width:100%;height:48px;margin:0 0 14px;box-sizing:border-box;padding:0 12px;border:1px solid rgba(25,56,184,.45);border-radius:12px;background:#05070C;color:#F8FAFC;font-size:16px;">
+          <label for="gz-pass" style="display:block;margin:0 0 6px;color:#B8EDEC;font-size:13px;">رمز عبور</label>
+          <input id="gz-pass" name="password" type="password" autocomplete="current-password" required placeholder="رمز عبور" style="display:block;width:100%;height:48px;margin:0 0 8px;box-sizing:border-box;padding:0 12px;border:1px solid rgba(25,56,184,.45);border-radius:12px;background:#05070C;color:#F8FAFC;font-size:16px;">
+          <button type="button" id="gz-pass-toggle" aria-pressed="false" style="display:inline-block;margin:0 0 14px;border:0;background:transparent;color:#51B5B2;font-size:13px;">نمایش رمز</button>
+          <p class="gz-error" id="gz-login-error" hidden style="color:#FCA5A5;text-align:center;"></p>
+          <button type="submit" class="gz-submit" id="gz-login-btn" style="display:block;width:100%;height:50px;border:0;border-radius:12px;background:linear-gradient(90deg,#1938B8,#51B5B2);color:#fff;font-size:16px;font-weight:700;">
             <span class="gz-submit__spin" aria-hidden="true"></span>
             <span class="gz-submit__label">ورود به پنل</span>
           </button>
@@ -237,9 +247,10 @@
     </div>
     <div id="root"></div>
     <div id="gz-boot" hidden>
+      <img src="/assets/learn-max-logo.png?v=lm1" width="64" height="64" alt="" style="width:64px;height:64px;object-fit:contain;margin-bottom:4px;">
       <div class="gz-boot-spin" aria-hidden="true"></div>
       <span>در حال بارگذاری...</span>
     </div>
-    <script src="/login.js?v=boot4"></script>
+    <script src="/login.js?v=lm-brand1"></script>
   </body>
 </html>

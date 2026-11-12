@@ -4,7 +4,7 @@
   var bootClass = 'gz-booting';
   var readyClass = 'gz-app-ready';
   var clockTimer = 0;
-  var TAB_TITLE = "حسابداری آموزشگاه غزال";
+  var TAB_TITLE = "حسابداری لرن‌مکس";
   var TAB_TITLE_MARKED = "\u2067" + TAB_TITLE + "\u2069";
   var origFetch = window.fetch;
   var handoffTimer = 0;
